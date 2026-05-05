@@ -1,1306 +1,1539 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>慶應水球部 組織OSアップデート2026</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        keio: {
-                            DEFAULT: '#003366', // 慶應ネイビー
-                            dark: '#001a33',
-                            light: '#004d99',
-                            red: '#C8102E',   // 慶應レッド
-                            gold: '#D4AF37',  // 慶應ゴールド
-                            bg: '#f8fafc'
-                        }
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                    }
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>慶應水球部 組織OSアップデート2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            keio: {
+              DEFAULT: '#003366', // 慶應ネイビー
+              dark: '#001a33',
+              light: '#004d99',
+              red: '#C8102E', // 慶應レッド
+              gold: '#D4AF37', // 慶應ゴールド
+              bg: '#f8fafc'
             }
+          },
+          backgroundImage: {
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+          }
         }
-    </script>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            background-color: #f0f4f8;
-            padding-bottom: calc(85px + env(safe-area-inset-bottom));
-            color: #334155;
-        }
-        
-        /* タブアニメーション */
-        .tab-content {
-            display: none;
-            animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .tab-content.active {
-            display: block;
-        }
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: #f0f4f8;
+      padding-bottom: calc(85px + env(safe-area-inset-bottom));
+      color: #334155;
+    }
 
-        /* 下部固定ナビゲーション */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-            display: flex;
-            justify-content: space-around;
-            z-index: 50;
-            padding-bottom: env(safe-area-inset-bottom);
-            border-top: 1px solid #e2e8f0;
-        }
-        .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 0;
-            color: #94a3b8;
-            font-size: 0.65rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background-color: #003366;
-            transition: width 0.3s ease;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
-        }
-        .nav-item.active {
-            color: #003366;
-            font-weight: bold;
-        }
-        .nav-item.active::before {
-            width: 40%;
-        }
-        .nav-item .icon {
-            font-size: 1.3rem;
-            margin-bottom: 4px;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .nav-item.active .icon {
-            transform: translateY(-2px) scale(1.15);
-            color: #C8102E; /* アクティブ時のアイコンは赤に */
-        }
+    /* タブアニメーション */
+    .tab-content {
+      display: none;
+      animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        /* 装飾用コンポーネント */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-        }
-        
-        .hero-bg {
-            background: linear-gradient(135deg, rgba(0,51,102,0.9) 0%, rgba(0,26,51,0.95) 100%), url('https://images.unsplash.com/photo-1519451253457-41b9b3ccbbd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80') center/cover;
-        }
+    .tab-content.active {
+      display: block;
+    }
 
-        .img-placeholder {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 0.75rem;
-            margin-bottom: 1rem;
-        }
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
 
-        .tag-why { background: #fee2e2; color: #991b1b; }
-        .tag-goal { background: #e0f2fe; color: #075985; }
-        
-        .timeline-container { position: relative; padding-left: 24px; }
-        .timeline-container::before {
-            content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: #e2e8f0;
-        }
-        .timeline-dot {
-            position: absolute; left: -24px; top: 4px; width: 16px; height: 16px; border-radius: 50%;
-            background: #003366; border: 3px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-    </style>
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 下部固定ナビゲーション */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: space-around;
+      z-index: 50;
+      padding-bottom: env(safe-area-inset-bottom);
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 0;
+      color: #94a3b8;
+      font-size: 0.65rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background-color: #003366;
+      transition: width 0.3s ease;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .nav-item.active {
+      color: #003366;
+      font-weight: bold;
+    }
+
+    .nav-item.active::before {
+      width: 40%;
+    }
+
+    .nav-item .icon {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .nav-item.active .icon {
+      transform: translateY(-2px) scale(1.15);
+      color: #C8102E;
+      /* アクティブ時のアイコンは赤に */
+    }
+
+    /* 装飾用コンポーネント */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-bg {
+      background: linear-gradient(135deg, rgba(0, 51, 102, 0.9) 0%, rgba(0, 26, 51, 0.95) 100%), url('https://images.unsplash.com/photo-1519451253457-41b9b3ccbbd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80') center/cover;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag-why {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .tag-goal {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .timeline-container {
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #e2e8f0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -24px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #003366;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
-<body>   
+
+<body>
   <div id="tab-home" class="tab-content active">
     <header class="hero-bg text-white px-5 py-16 text-center rounded-b-[2.5rem] shadow-2xl relative overflow-hidden">
-        <div class="absolute inset-0 bg-keio/40 backdrop-blur-[2px]"></div>
-        <div class="relative z-10">
-            <span class="inline-block py-1 px-4 border border-keio-gold text-keio-gold text-[10px] font-bold tracking-[0.2em] mb-4 rounded-full bg-black/40 backdrop-blur-md">ORGANIZATION OS UPDATE 2026</span>
-            <h1 class="text-3xl font-black mb-6 leading-tight tracking-tight drop-shadow-lg font-serif">
-                最新の塾高が、<br><span class="text-keio-gold">最良の塾高である。</span>
-            </h1>
-            <p class="text-sm text-gray-200 font-medium tracking-wide leading-relaxed">
-                100年先の日本スポーツ界の<br>ロールモデルを共に創る
-            </p>
-        </div>
+      <div class="absolute inset-0 bg-keio/40 backdrop-blur-[2px]"></div>
+      <div class="relative z-10">
+        <span class="inline-block py-1 px-4 border border-keio-gold text-keio-gold text-[10px] font-bold tracking-[0.2em] mb-4 rounded-full bg-black/40 backdrop-blur-md">ORGANIZATION OS UPDATE 2026</span>
+        <h1 class="text-3xl font-black mb-6 leading-tight tracking-tight drop-shadow-lg font-serif">
+          最新の塾高が、<br><span class="text-keio-gold">最良の塾高である。</span>
+        </h1>
+        <p class="text-sm text-gray-200 font-medium tracking-wide leading-relaxed">
+          100年先の日本スポーツ界の<br>ロールモデルを共に創る
+        </p>
+      </div>
     </header>
 
     <main class="p-4 space-y-6 -mt-8 relative z-20 max-w-2xl mx-auto">
-        
-        <div class="glass-card rounded-2xl p-6 border-t-4 border-keio-gold shadow-xl">
-            <div class="flex items-center mb-4">
-                <span class="text-[10px] font-bold px-2 py-1 rounded bg-yellow-100 text-yellow-800 mr-2 tracking-tighter">VISION</span>
-                <h2 class="text-lg font-bold text-gray-900">我々が目指す「最終的なゴール」</h2>
-            </div>          
-        <img src="https://loremflickr.com/800/400/waterpolo" alt="圧倒的な競技力" class="img-placeholder shadow-md brightness-90">  
-            <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
-                <p>我々が目指すのは、単なる「高校部活動」の枠組みではありません。オックスフォードやケンブリッジのように、<strong class="text-keio">世界有数の歴史と伝統、そして圧倒的な競技力</strong>を兼ね備えた、世界基準のクラブの体現です。</p>
-                <div class="bg-keio-bg p-4 rounded-xl border-l-4 border-keio-gold italic text-xs">
-                    「100年を超えて尊敬され続ける知性と剛毅。その象徴として、塾高水球部を日本スポーツ界の至宝へとアップデートする。」
-                </div>
-            </div>
-        </div>
 
-        <div class="glass-card rounded-2xl p-6 border-t-4 border-keio-red shadow-lg">
-            <div class="flex items-center mb-4">
-                <span class="text-[10px] font-bold px-2 py-1 rounded bg-red-100 text-red-800 mr-2 tracking-tighter">WHAT</span>
-                <h2 class="text-lg font-bold text-gray-900">直面している「変革と危機」</h2>
-            </div>
-            <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
-                <p>今、日本の学校部活動は歴史的な分岐点にあります。教員の自己犠牲に依存した昭和のシステムは限界を迎え、地域移行も安全・費用の両面で課題が噴出しています。</p>
-                <p>我々の組織も、精神的支柱であった恩師の勇退を見据え、<strong class="text-keio-red">属人的な情熱と自己犠牲に頼る時代を、システムによって完全に終わらせる必要</strong>があります。これが今、我々が乗り越えるべき「不都合な真実」です。</p>
-            </div>
+      <div class="glass-card rounded-2xl p-6 border-t-4 border-keio-gold shadow-xl">
+        <div class="flex items-center mb-4">
+          <span class="text-[10px] font-bold px-2 py-1 rounded bg-yellow-100 text-yellow-800 mr-2 tracking-tighter">VISION</span>
+          <h2 class="text-lg font-bold text-gray-900">我々が目指す「最終的なゴール」</h2>
         </div>
+        <img src="https://loremflickr.com/800/400/waterpolo" alt="圧倒的な競技力" class="img-placeholder shadow-md brightness-90">
+        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <p>我々が目指すのは、単なる「高校部活動」の枠組みではありません。オックスフォードやケンブリッジのように、<strong class="text-keio">世界有数の歴史と伝統、そして圧倒的な競技力</strong>を兼ね備えた、世界基準のクラブの体現です。</p>
+          <div class="bg-keio-bg p-4 rounded-xl border-l-4 border-keio-gold italic text-xs">
+            「100年を超えて尊敬され続ける知性と剛毅。その象徴として、塾高水球部を日本スポーツ界の至宝へとアップデートする。」
+          </div>
+        </div>
+      </div>
 
-<div class="glass-card rounded-2xl p-6 border-t-4 border-keio shadow-lg">
-            <div class="flex items-center mb-4">
-                <span class="text-[10px] font-bold px-2 py-1 rounded bg-blue-100 text-blue-800 mr-2 tracking-tighter">HOW</span>
-                <h2 class="text-lg font-bold text-gray-900">外部に依存しない「自律駆動」</h2>
-            </div>
-            <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
-                <p>この危機を突破する手段は、ボランティアの募集ではありません。学校法人と「臨時職員」「部活動指導員」として正式契約を結び、正当な報酬と責任を伴う<strong class="text-keio">「プロの指導陣」</strong>を核としたエコシステムの構築です。</p>
-                
-                <div class="mt-6 overflow-hidden rounded-xl border border-gray-200 shadow-inner">
-                    <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center">
-                        <i class="fa-solid fa-file-contract text-keio mr-2"></i>
-                        <span class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">責任とコストの可視化</span>
-                    </div>
-                    <table class="w-full text-left border-collapse bg-white">
-                        <thead>
-                            <tr class="text-[10px] text-gray-500 bg-gray-50/50">
-                                <th class="p-3 font-bold">項目</th>
-                                <th class="p-3 font-bold text-center">無資格</th>
-                                <th class="p-3 font-bold text-center">指導員</th>
-                                <th class="p-3 font-bold text-center bg-blue-50 text-keio">臨時職員</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-[11px]">
-                            <tr class="border-t border-gray-100">
-                                <td class="p-3 font-medium text-gray-800">指導の責任</td>
-                                <td class="p-3 text-center text-green-500"><i class="fa-solid fa-circle-check"></i></td>
-                                <td class="p-3 text-center text-green-500"><i class="fa-solid fa-circle-check"></i></td>
-                                <td class="p-3 text-center bg-blue-50/30 text-green-600"><i class="fa-solid fa-circle-check"></i></td>
-                            </tr>
-                            <tr class="border-t border-gray-100">
-                                <td class="p-3 font-medium text-gray-800">安全への責任</td>
-                                <td class="p-3 text-center text-red-400"><i class="fa-solid fa-xmark"></i></td>
-                                <td class="p-3 text-center text-green-500"><i class="fa-solid fa-circle-check"></i></td>
-                                <td class="p-3 text-center bg-blue-50/30 text-green-600"><i class="fa-solid fa-circle-check text-lg"></i></td>
-                            </tr>
-                            <tr class="border-t border-gray-100">
-                                <td class="p-3 font-medium text-gray-800">報酬 (時給等)</td>
-                                <td class="p-3 text-center text-red-400"><i class="fa-solid fa-xmark"></i></td>
-                                <td class="p-3 text-center text-red-400"><i class="fa-solid fa-xmark"></i></td>
-                                <td class="p-3 text-center bg-blue-50/30 text-green-600"><i class="fa-solid fa-circle-check text-lg"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="bg-blue-50 p-4 border-t border-blue-100">
-                        <div class="flex items-start">
-                            <i class="fa-solid fa-circle-info text-keio mt-0.5 mr-2"></i>
-                            <div>
-                                <h4 class="text-xs font-bold text-keio mb-1">責任のグラデーション</h4>
-                                <p class="text-[10px] text-gray-600 leading-snug">
-                                    有資格者になれば、生徒の命を預かる「安全への責任」を法的に負います。特に<span class="text-keio font-bold">臨時職員は学校側に労災等のコストも発生しているプロフェッショナルな契約</span>です。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="glass-card rounded-2xl p-6 border-t-4 border-keio-red shadow-lg">
+        <div class="flex items-center mb-4">
+          <span class="text-[10px] font-bold px-2 py-1 rounded bg-red-100 text-red-800 mr-2 tracking-tighter">WHAT</span>
+          <h2 class="text-lg font-bold text-gray-900">直面している「変革と危機」</h2>
         </div>
+        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <p>今、日本の学校部活動は歴史的な分岐点にあります。教員の自己犠牲に依存した昭和のシステムは限界を迎え、地域移行も安全・費用の両面で課題が噴出しています。</p>
+          <p>我々の組織も、精神的支柱であった恩師の勇退を見据え、<strong class="text-keio-red">属人的な情熱と自己犠牲に頼る時代を、システムによって完全に終わらせる必要</strong>があります。これが今、我々が乗り越えるべき「不都合な真実」です。</p>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border-t-4 border-keio shadow-lg">
+        <div class="flex items-center mb-4">
+          <span class="text-[10px] font-bold px-2 py-1 rounded bg-blue-100 text-blue-800 mr-2 tracking-tighter">HOW</span>
+          <h2 class="text-lg font-bold text-gray-900">外部に依存しない「自律駆動」</h2>
+        </div>
+        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <p>この危機を突破する手段は、ボランティアの募集ではありません。学校法人と「臨時職員」「部活動指導員」として正式契約を結び、正当な報酬と責任を伴う<strong class="text-keio">「プロの指導陣」</strong>を核としたエコシステムの構築です。</p>
+
+          <div class="mt-6 overflow-hidden rounded-xl border border-gray-200 shadow-inner">
+            <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center">
+              <i class="fa-solid fa-file-contract text-keio mr-2"></i>
+              <span class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">責任とコストの可視化</span>
+            </div>
+            <table class="w-full text-left border-collapse bg-white">
+              <thead>
+                <tr class="text-[10px] text-gray-500 bg-gray-50/50">
+                  <th class="p-3 font-bold">項目</th>
+                  <th class="p-3 font-bold text-center">無資格</th>
+                  <th class="p-3 font-bold text-center">指導員</th>
+                  <th class="p-3 font-bold text-center bg-blue-50 text-keio">臨時職員</th>
+                </tr>
+              </thead>
+              <tbody class="text-[11px]">
+                <tr class="border-t border-gray-100">
+                  <td class="p-3 font-medium text-gray-800">指導の責任</td>
+                  <td class="p-3 text-center text-green-500"><i class="fa-solid fa-circle-check"></i></td>
+                  <td class="p-3 text-center text-green-500"><i class="fa-solid fa-circle-check"></i></td>
+                  <td class="p-3 text-center bg-blue-50/30 text-green-600"><i class="fa-solid fa-circle-check"></i></td>
+                </tr>
+                <tr class="border-t border-gray-100">
+                  <td class="p-3 font-medium text-gray-800">安全への責任</td>
+                  <td class="p-3 text-center text-red-400"><i class="fa-solid fa-xmark"></i></td>
+                  <td class="p-3 text-center text-green-500"><i class="fa-solid fa-circle-check"></i></td>
+                  <td class="p-3 text-center bg-blue-50/30 text-green-600"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                </tr>
+                <tr class="border-t border-gray-100">
+                  <td class="p-3 font-medium text-gray-800">報酬 (時給等)</td>
+                  <td class="p-3 text-center text-red-400"><i class="fa-solid fa-xmark"></i></td>
+                  <td class="p-3 text-center text-red-400"><i class="fa-solid fa-xmark"></i></td>
+                  <td class="p-3 text-center bg-blue-50/30 text-green-600"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="bg-blue-50 p-4 border-t border-blue-100">
+              <div class="flex items-start">
+                <i class="fa-solid fa-circle-info text-keio mt-0.5 mr-2"></i>
+                <div>
+                  <h4 class="text-xs font-bold text-keio mb-1">責任のグラデーション</h4>
+                  <p class="text-[10px] text-gray-600 leading-snug">
+                    有資格者になれば、生徒の命を預かる「安全への責任」を法的に負います。特に<span class="text-keio font-bold">臨時職員は学校側に労災等のコストも発生しているプロフェッショナルな契約</span>です。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </main>
-</div>
+  </div>
   <div id="tab-org" class="tab-content">
-        <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl relative overflow-hidden">
-            <div class="absolute -right-5 -top-5 text-8xl text-white/5"><i class="fa-solid fa-sitemap"></i></div>
-            <i class="fa-solid fa-sitemap text-3xl text-keio-gold mb-3 relative z-10"></i>
-            <h1 class="text-2xl font-bold tracking-wider relative z-10">組織とシステム構造</h1>
-            <p class="text-xs text-keio-gold mt-2 opacity-80 relative z-10">新陳代謝する筋肉質な逆ピラミッド</p>
-        </header>
+    <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl relative overflow-hidden">
+      <div class="absolute -right-5 -top-5 text-8xl text-white/5"><i class="fa-solid fa-sitemap"></i></div>
+      <i class="fa-solid fa-sitemap text-3xl text-keio-gold mb-3 relative z-10"></i>
+      <h1 class="text-2xl font-bold tracking-wider relative z-10">組織とシステム構造</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-80 relative z-10">新陳代謝する筋肉質な逆ピラミッド</p>
+    </header>
 
-        <main class="p-4 space-y-6 max-w-2xl mx-auto -mt-4 relative z-20">
-            
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div class="space-y-2">
-                    <div class="bg-blue-50 p-4 rounded-t-2xl text-center border-b-[6px] border-blue-200 relative shadow-sm">
-                        <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest">主役 / 伴走</span>
-                        <h3 class="font-bold text-blue-900 text-sm mt-3">担任・副担任 / 学生コーチ</h3>
-                        <p class="text-[11px] text-gray-600 mt-1">部員の一次感情を増幅させ、尖ったスキルを創出する</p>
-                    </div>
-                    <div class="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-blue-200 mx-auto"></div>
+    <main class="p-4 space-y-6 max-w-2xl mx-auto -mt-4 relative z-20">
 
-                    <div class="bg-gray-100 p-4 rounded-xl text-center w-11/12 mx-auto border-b-[6px] border-gray-300 relative shadow-sm">
-                        <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest">中間管理職</span>
-                        <h3 class="font-bold text-gray-800 text-sm mt-3">監督・戦術担当</h3>
-                        <p class="text-[11px] text-gray-600 mt-1">現場の声と組織の目指す姿（ビジョン）のすり合わせ</p>
-                    </div>
-                    <div class="w-0 h-0 border-l-[15px] border-r-[15px] border-t-[15px] border-l-transparent border-r-transparent border-t-gray-300 mx-auto"></div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="space-y-2">
+          <div class="bg-blue-50 p-4 rounded-t-2xl text-center border-b-[6px] border-blue-200 relative shadow-sm">
+            <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest">主役 / 伴走</span>
+            <h3 class="font-bold text-blue-900 text-sm mt-3">担任・副担任 / 学生コーチ</h3>
+            <p class="text-[11px] text-gray-600 mt-1">部員の一次感情を増幅させ、尖ったスキルを創出する</p>
+          </div>
+          <div class="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-blue-200 mx-auto"></div>
 
-                    <div class="bg-keio-dark p-5 rounded-b-2xl text-center w-5/6 mx-auto relative shadow-xl">
-                        <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-black text-keio-gold text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest">土台 / 防波堤</span>
-                        <h3 class="font-bold text-white text-sm mt-3">総監督 (相澤)</h3>
-                        <p class="text-[11px] text-gray-300 mt-2">批判やノイズを全て遮断し、指導陣の裁量と環境を死守する</p>
-                    </div>
-                </div>
+          <div class="bg-gray-100 p-4 rounded-xl text-center w-11/12 mx-auto border-b-[6px] border-gray-300 relative shadow-sm">
+            <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest">中間管理職</span>
+            <h3 class="font-bold text-gray-800 text-sm mt-3">監督・戦術担当</h3>
+            <p class="text-[11px] text-gray-600 mt-1">現場の声と組織の目指す姿（ビジョン）のすり合わせ</p>
+          </div>
+          <div class="w-0 h-0 border-l-[15px] border-r-[15px] border-t-[15px] border-l-transparent border-r-transparent border-t-gray-300 mx-auto"></div>
+
+          <div class="bg-keio-dark p-5 rounded-b-2xl text-center w-5/6 mx-auto relative shadow-xl">
+            <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-black text-keio-gold text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest">土台 / 防波堤</span>
+            <h3 class="font-bold text-white text-sm mt-3">総監督 (相澤)</h3>
+            <p class="text-[11px] text-gray-300 mt-2">批判やノイズを全て遮断し、指導陣の裁量と環境を死守する</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm border-t-4 border-keio">
+        <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+          <i class="fa-solid fa-users-gear text-keio mr-2"></i>指導陣の役割と任期
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[500px]">
+            <thead>
+              <tr class="border-b-2 border-keio text-xs text-gray-600">
+                <th class="pb-2 pl-2 w-1/4">役職</th>
+                <th class="pb-2 text-center w-1/6">任期</th>
+                <th class="pb-2 pl-4">役割・ミッション</th>
+              </tr>
+            </thead>
+            <tbody class="text-xs">
+              <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
+                <td class="py-3 pl-2">
+                  <span class="bg-keio-dark text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">監督</span>
+                </td>
+                <td class="py-3 text-center text-keio-red font-bold text-sm">2年</td>
+                <td class="py-3 pl-4 text-gray-700 leading-relaxed font-medium">全体システムと現場の声をすり合わせる、チームの意思決定者</td>
+              </tr>
+              <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
+                <td class="py-3 pl-2">
+                  <span class="bg-gray-700 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">戦術担当</span>
+                </td>
+                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
+                <td class="py-3 pl-4 text-gray-700 leading-relaxed">監督の補佐役。Firstチームの戦術策定、及び全体のメニュー策定の考え方や具体メニューを提示する</td>
+              </tr>
+              <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
+                <td class="py-3 pl-2">
+                  <span class="bg-blue-600 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">学生コーチ</span>
+                </td>
+                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
+                <td class="py-3 pl-4 text-gray-700 leading-relaxed">平日のメニュー策定と実行、及び練習の様子を担任へ連携する「学生と社会人のハブ」</td>
+              </tr>
+              <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
+                <td class="py-3 pl-2">
+                  <span class="bg-green-700 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">担任</span>
+                </td>
+                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
+                <td class="py-3 pl-4 text-gray-700 leading-relaxed">各代の個人指導役。モチベートと、相対的に実力の低い子に常に軸足を置くケアを担当</td>
+              </tr>
+              <tr>
+                <td class="py-3 pl-2">
+                  <span class="bg-green-600/80 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">副担任</span>
+                </td>
+                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
+                <td class="py-3 pl-4 text-gray-700 leading-relaxed">担任の補佐役。基本的には担任と同じ役割と視点を持つ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border-l-[6px] border-keio-gold shadow-md">
+        <h2 class="text-md font-bold text-gray-900 mb-3 flex items-center">
+          <i class="fa-solid fa-tags text-keio-gold mr-2"></i>チーム呼称のアップデート
+        </h2>
+        <p class="text-xs text-gray-600 mb-4">単なるアルファベットの区分けを廃止し、それぞれの役割と誇りを示す名称へ変更します。</p>
+
+        <div class="space-y-3">
+          <div class="flex flex-col sm:flex-row bg-white p-3 rounded-lg border border-gray-200">
+            <div class="flex items-center mb-2 sm:mb-0 sm:w-1/3">
+              <span class="text-[10px] bg-red-100 text-red-700 px-2 py-0.5 rounded font-bold mr-2">旧 Aチーム</span>
+              <i class="fa-solid fa-arrow-right text-gray-400 mr-2 text-xs"></i>
+              <h3 class="font-bold text-keio text-sm">First チーム</h3>
             </div>
-
-            <div class="bg-white rounded-2xl p-6 shadow-sm border-t-4 border-keio">
-                <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                    <i class="fa-solid fa-users-gear text-keio mr-2"></i>指導陣の役割と任期
-                </h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse min-w-[500px]">
-                        <thead>
-                            <tr class="border-b-2 border-keio text-xs text-gray-600">
-                                <th class="pb-2 pl-2 w-1/4">役職</th>
-                                <th class="pb-2 text-center w-1/6">任期</th>
-                                <th class="pb-2 pl-4">役割・ミッション</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-xs">
-                            <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
-                                <td class="py-3 pl-2">
-                                    <span class="bg-keio-dark text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">監督</span>
-                                </td>
-                                <td class="py-3 text-center text-keio-red font-bold text-sm">2年</td>
-                                <td class="py-3 pl-4 text-gray-700 leading-relaxed font-medium">全体システムと現場の声をすり合わせる、チームの意思決定者</td>
-                            </tr>
-                            <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
-                                <td class="py-3 pl-2">
-                                    <span class="bg-gray-700 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">戦術担当</span>
-                                </td>
-                                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
-                                <td class="py-3 pl-4 text-gray-700 leading-relaxed">監督の補佐役。Firstチームの戦術策定、及び全体のメニュー策定の考え方や具体メニューを提示する</td>
-                            </tr>
-                            <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
-                                <td class="py-3 pl-2">
-                                    <span class="bg-blue-600 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">学生コーチ</span>
-                                </td>
-                                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
-                                <td class="py-3 pl-4 text-gray-700 leading-relaxed">平日のメニュー策定と実行、及び練習の様子を担任へ連携する「学生と社会人のハブ」</td>
-                            </tr>
-                            <tr class="border-b border-gray-200 border-dashed hover:bg-gray-50 transition-colors">
-                                <td class="py-3 pl-2">
-                                    <span class="bg-green-700 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">担任</span>
-                                </td>
-                                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
-                                <td class="py-3 pl-4 text-gray-700 leading-relaxed">各代の個人指導役。モチベートと、相対的に実力の低い子に常に軸足を置くケアを担当</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 pl-2">
-                                    <span class="bg-green-600/80 text-white px-2 py-1.5 rounded text-[10px] font-bold block text-center shadow-sm">副担任</span>
-                                </td>
-                                <td class="py-3 text-center text-gray-500 font-medium">年単位</td>
-                                <td class="py-3 pl-4 text-gray-700 leading-relaxed">担任の補佐役。基本的には担任と同じ役割と視点を持つ</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <p class="text-[11px] text-gray-600 sm:w-2/3 sm:pl-3 sm:border-l border-gray-100 leading-relaxed">
+              学校を代表して第一線で戦い抜き、勝利という結果で組織を牽引する決意を込めた名称。
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row bg-white p-3 rounded-lg border border-gray-200">
+            <div class="flex items-center mb-2 sm:mb-0 sm:w-1/3">
+              <span class="text-[10px] bg-gray-200 text-gray-700 px-2 py-0.5 rounded font-bold mr-2">旧 Bチーム</span>
+              <i class="fa-solid fa-arrow-right text-gray-400 mr-2 text-xs"></i>
+              <h3 class="font-bold text-green-700 text-sm">Challenger チーム</h3>
             </div>
+            <p class="text-[11px] text-gray-600 sm:w-2/3 sm:pl-3 sm:border-l border-gray-100 leading-relaxed">
+              現状に満足せず、常に上位層を脅かす存在として己を磨き、主体的に「挑戦」を続ける姿勢を込めた名称。
+            </p>
+          </div>
+        </div>
+      </div>
 
-            <div class="glass-card rounded-2xl p-6 border-l-[6px] border-keio-gold shadow-md">
-                <h2 class="text-md font-bold text-gray-900 mb-3 flex items-center">
-                    <i class="fa-solid fa-tags text-keio-gold mr-2"></i>チーム呼称のアップデート
-                </h2>
-                <p class="text-xs text-gray-600 mb-4">単なるアルファベットの区分けを廃止し、それぞれの役割と誇りを示す名称へ変更します。</p>
-                
-                <div class="space-y-3">
-                    <div class="flex flex-col sm:flex-row bg-white p-3 rounded-lg border border-gray-200">
-                        <div class="flex items-center mb-2 sm:mb-0 sm:w-1/3">
-                            <span class="text-[10px] bg-red-100 text-red-700 px-2 py-0.5 rounded font-bold mr-2">旧 Aチーム</span>
-                            <i class="fa-solid fa-arrow-right text-gray-400 mr-2 text-xs"></i>
-                            <h3 class="font-bold text-keio text-sm">First チーム</h3>
-                        </div>
-                        <p class="text-[11px] text-gray-600 sm:w-2/3 sm:pl-3 sm:border-l border-gray-100 leading-relaxed">
-                            学校を代表して第一線で戦い抜き、勝利という結果で組織を牽引する決意を込めた名称。
-                        </p>
-                    </div>
-                    <div class="flex flex-col sm:flex-row bg-white p-3 rounded-lg border border-gray-200">
-                        <div class="flex items-center mb-2 sm:mb-0 sm:w-1/3">
-                            <span class="text-[10px] bg-gray-200 text-gray-700 px-2 py-0.5 rounded font-bold mr-2">旧 Bチーム</span>
-                            <i class="fa-solid fa-arrow-right text-gray-400 mr-2 text-xs"></i>
-                            <h3 class="font-bold text-green-700 text-sm">Challenger チーム</h3>
-                        </div>
-                        <p class="text-[11px] text-gray-600 sm:w-2/3 sm:pl-3 sm:border-l border-gray-100 leading-relaxed">
-                            現状に満足せず、常に上位層を脅かす存在として己を磨き、主体的に「挑戦」を続ける姿勢を込めた名称。
-                        </p>
-                    </div>
-                </div>
-            </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative">
+        <span class="absolute -top-3 left-6 bg-gray-800 text-white text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest uppercase">Bench Operation</span>
 
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative">
-                <span class="absolute -top-3 left-6 bg-gray-800 text-white text-[10px] px-4 py-1 rounded-full shadow-md font-bold tracking-widest uppercase">Bench Operation</span>
-                
-                <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-100">
-                        <h3 class="font-bold text-sm text-keio mb-2 flex items-center"><i class="fa-solid fa-trophy text-keio-gold mr-2"></i>公式戦 (First主体)</h3>
-                        <p class="text-[10px] text-gray-500 mb-3">ドライに戦術を遂行し、勝利を追求する体制。</p>
-                        <ul class="text-xs text-gray-700 font-medium space-y-2">
-                            <li class="flex items-center bg-white p-1.5 rounded border border-gray-100"><div class="w-5 h-5 rounded bg-keio/10 text-keio flex justify-center items-center mr-2"><i class="fa-solid fa-user-tie text-[10px]"></i></div>監督</li>
-                            <li class="flex items-center bg-white p-1.5 rounded border border-gray-100"><div class="w-5 h-5 rounded bg-keio/10 text-keio flex justify-center items-center mr-2"><i class="fa-solid fa-chess text-[10px]"></i></div>戦術担当</li>
-                            <li class="flex items-center bg-white p-1.5 rounded border border-gray-100"><div class="w-5 h-5 rounded bg-keio/10 text-keio flex justify-center items-center mr-2"><i class="fa-solid fa-chalkboard-user text-[10px]"></i></div>3年担任</li>
-                        </ul>
-                    </div>
+        <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-100">
+            <h3 class="font-bold text-sm text-keio mb-2 flex items-center"><i class="fa-solid fa-trophy text-keio-gold mr-2"></i>公式戦 (First主体)</h3>
+            <p class="text-[10px] text-gray-500 mb-3">ドライに戦術を遂行し、勝利を追求する体制。</p>
+            <ul class="text-xs text-gray-700 font-medium space-y-2">
+              <li class="flex items-center bg-white p-1.5 rounded border border-gray-100">
+                <div class="w-5 h-5 rounded bg-keio/10 text-keio flex justify-center items-center mr-2"><i class="fa-solid fa-user-tie text-[10px]"></i></div>監督
+              </li>
+              <li class="flex items-center bg-white p-1.5 rounded border border-gray-100">
+                <div class="w-5 h-5 rounded bg-keio/10 text-keio flex justify-center items-center mr-2"><i class="fa-solid fa-chess text-[10px]"></i></div>戦術担当
+              </li>
+              <li class="flex items-center bg-white p-1.5 rounded border border-gray-100">
+                <div class="w-5 h-5 rounded bg-keio/10 text-keio flex justify-center items-center mr-2"><i class="fa-solid fa-chalkboard-user text-[10px]"></i></div>3年担任
+              </li>
+            </ul>
+          </div>
 
-                    <div class="bg-green-50/50 rounded-xl p-4 border border-green-100">
-                        <h3 class="font-bold text-sm text-green-800 mb-2 flex items-center"><i class="fa-solid fa-heart-pulse text-green-600 mr-2"></i>非公式戦 (Challenger主体)</h3>
-                        <p class="text-[10px] text-gray-500 mb-3">個人の悩みや成長（ウェット）に寄り添う体制。</p>
-                        <ul class="text-xs text-gray-700 font-medium space-y-2">
-                            <li class="flex items-center bg-white p-1.5 rounded border border-gray-100"><div class="w-5 h-5 rounded bg-green-100 text-green-700 flex justify-center items-center mr-2"><i class="fa-solid fa-heart text-[10px]"></i></div>2年担任</li>
-                            <li class="flex items-center bg-white p-1.5 rounded border border-gray-100"><div class="w-5 h-5 rounded bg-green-100 text-green-700 flex justify-center items-center mr-2"><i class="fa-solid fa-seedling text-[10px]"></i></div>1年担任</li>
-                            <li class="flex items-center bg-white p-1.5 rounded border border-gray-100"><div class="w-5 h-5 rounded bg-green-100 text-green-700 flex justify-center items-center mr-2"><i class="fa-solid fa-hands-holding-child text-[10px]"></i></div>3年副担任</li>
-                        </ul>
-                    </div>
-                </div>
+          <div class="bg-green-50/50 rounded-xl p-4 border border-green-100">
+            <h3 class="font-bold text-sm text-green-800 mb-2 flex items-center"><i class="fa-solid fa-heart-pulse text-green-600 mr-2"></i>非公式戦 (Challenger主体)</h3>
+            <p class="text-[10px] text-gray-500 mb-3">個人の悩みや成長（ウェット）に寄り添う体制。</p>
+            <ul class="text-xs text-gray-700 font-medium space-y-2">
+              <li class="flex items-center bg-white p-1.5 rounded border border-gray-100">
+                <div class="w-5 h-5 rounded bg-green-100 text-green-700 flex justify-center items-center mr-2"><i class="fa-solid fa-heart text-[10px]"></i></div>2年担任
+              </li>
+              <li class="flex items-center bg-white p-1.5 rounded border border-gray-100">
+                <div class="w-5 h-5 rounded bg-green-100 text-green-700 flex justify-center items-center mr-2"><i class="fa-solid fa-seedling text-[10px]"></i></div>1年担任
+              </li>
+              <li class="flex items-center bg-white p-1.5 rounded border border-gray-100">
+                <div class="w-5 h-5 rounded bg-green-100 text-green-700 flex justify-center items-center mr-2"><i class="fa-solid fa-hands-holding-child text-[10px]"></i></div>3年副担任
+              </li>
+            </ul>
+          </div>
+        </div>
 
-                <div class="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-lg text-xs text-gray-700 flex items-start">
-                    <i class="fa-solid fa-circle-exclamation text-yellow-500 mt-0.5 mr-2"></i>
-                    <p class="leading-relaxed">大会の規定や指示により、学校教員の参加がベンチ入りに義務付けられている場合は、<strong>坂上先生</strong>にベンチに入っていただきます。</p>
-                </div>
-            </div>
+        <div class="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-lg text-xs text-gray-700 flex items-start">
+          <i class="fa-solid fa-circle-exclamation text-yellow-500 mt-0.5 mr-2"></i>
+          <p class="leading-relaxed">大会の規定や指示により、学校教員の参加がベンチ入りに義務付けられている場合は、<strong>坂上先生</strong>にベンチに入っていただきます。</p>
+        </div>
+      </div>
 
-            <div class="bg-gray-800 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
-                <div class="absolute -right-6 -bottom-6 text-7xl text-white/5"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-                <div class="flex items-center mb-4 relative z-10">
-                    <i class="fa-solid fa-building-columns text-2xl text-keio-gold mr-3"></i>
-                    <h3 class="text-lg font-bold text-keio-gold">協生会 (塾高OB会)</h3>
-                </div>
-                
-                <p class="text-xs text-gray-300 mb-4 leading-relaxed relative z-10">
-                    オール三水会とは別組織として立ち上がった、我々現場を財政・組織的にバックアップする強固なエコシステムです。
-                </p>
+      <div class="bg-gray-800 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 text-7xl text-white/5"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+        <div class="flex items-center mb-4 relative z-10">
+          <i class="fa-solid fa-building-columns text-2xl text-keio-gold mr-3"></i>
+          <h3 class="text-lg font-bold text-keio-gold">協生会 (塾高OB会)</h3>
+        </div>
 
-                <div class="bg-gray-900/50 rounded-xl p-4 mb-4 border border-gray-700 relative z-10">
-                    <ul class="space-y-2 text-[11px] text-gray-300">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check text-green-400 mt-0.5 mr-2"></i>
-                            遠征時におけるスタッフの旅行費用の補助
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check text-green-400 mt-0.5 mr-2"></i>
-                            合宿時における学生の食事代等の補助
-                        </li>
-                    </ul>
-                </div>
+        <p class="text-xs text-gray-300 mb-4 leading-relaxed relative z-10">
+          オール三水会とは別組織として立ち上がった、我々現場を財政・組織的にバックアップする強固なエコシステムです。
+        </p>
 
-                <div class="text-xs text-gray-300 leading-relaxed relative z-10 bg-keio/20 p-3 rounded border-l-2 border-keio-red">
-                    協生会は、三水会のような定期徴収（会費制）は一切行っておらず、<strong>「本当に善意で寄付してくださった方々のお金」</strong>のみによって成立しています。現場の環境を維持・向上させるためにも、塾高OBの皆様には是非ともご加入・ご支援をお願いいたします。
-                </div>
-            </div>
+        <div class="bg-gray-900/50 rounded-xl p-4 mb-4 border border-gray-700 relative z-10">
+          <ul class="space-y-2 text-[11px] text-gray-300">
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-green-400 mt-0.5 mr-2"></i>
+              遠征時におけるスタッフの旅行費用の補助
+            </li>
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-green-400 mt-0.5 mr-2"></i>
+              合宿時における学生の食事代等の補助
+            </li>
+          </ul>
+        </div>
 
-        </main>
-    </div>
+        <div class="text-xs text-gray-300 leading-relaxed relative z-10 bg-keio/20 p-3 rounded border-l-2 border-keio-red">
+          協生会は、三水会のような定期徴収（会費制）は一切行っておらず、<strong>「本当に善意で寄付してくださった方々のお金」</strong>のみによって成立しています。現場の環境を維持・向上させるためにも、塾高OBの皆様には是非ともご加入・ご支援をお願いいたします。
+        </div>
+      </div>
+
+    </main>
+  </div>
   <div id="tab-policy" class="tab-content">
-        <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl">
-            <i class="fa-solid fa-book-open text-3xl text-keio-gold mb-3"></i>
-            <h1 class="text-2xl font-bold tracking-wider">指導方針・哲学</h1>
-            <p class="text-xs text-keio-gold mt-2 opacity-80">名著『ビジョナリー・カンパニー』の叡智に基づくOS</p>
-        </header>
-
-        <main class="p-4 space-y-6 max-w-2xl mx-auto">
-            
-            <section>
-                <div class="flex items-center mb-3">
-                    <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">MINDSET</span>
-                    <h2 class="text-lg font-bold text-gray-900">我々が持つべき哲学</h2>
-                </div>
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="チームミーティング" class="img-placeholder shadow-sm">
-                
-                <div class="space-y-4">
-                    <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-keio transition">
-                        <h3 class="font-bold text-keio text-md mb-3"><i class="fa-solid fa-mountain mr-2"></i>第5水準のリーダーシップ</h3>
-                        <p class="text-[11px] text-gray-600 leading-relaxed mb-4">我々指導陣は、属人的なカリスマ性に依存するのではなく、最も高い「第5水準」を常に意識し体現しなければなりません。</p>
-                        
-                        <div class="space-y-2 text-[10px]">
-                            <div class="flex items-center p-2 bg-gray-50 rounded text-gray-500">
-                                <span class="font-bold w-12 shrink-0">第1水準</span>
-                                <span><strong class="text-gray-700">有能な個人</strong>：個人の才能と知識で組織に貢献する。</span>
-                            </div>
-                            <div class="flex items-center p-2 bg-gray-50 rounded text-gray-500">
-                                <span class="font-bold w-12 shrink-0">第2水準</span>
-                                <span><strong class="text-gray-700">貢献するチームメンバー</strong>：チームの目標達成のために協力する。</span>
-                            </div>
-                            <div class="flex items-center p-2 bg-gray-50 rounded text-gray-500">
-                                <span class="font-bold w-12 shrink-0">第3水準</span>
-                                <span><strong class="text-gray-700">有能な管理者</strong>：人と資源を組織化し、目標を追求する。</span>
-                            </div>
-                            <div class="flex p-2 bg-gray-50 rounded text-gray-500 border-l-2 border-gray-300">
-                                <span class="font-bold w-12 shrink-0 pt-0.5">第4水準</span>
-                                <span><strong class="text-gray-800">有能なリーダー</strong>：明確なビジョンを示し、高い基準を追求する。<br><span class="text-[9px] text-keio-red">※カリスマ型リーダーはここに留まり、本人が去ると組織が崩壊するリスクを抱えます。</span></span>
-                            </div>
-                            <div class="flex p-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-900 shadow-sm relative mt-3">
-                                <i class="fa-solid fa-crown absolute -top-2 -right-2 text-keio-gold text-lg drop-shadow"></i>
-                                <span class="font-bold text-xs w-12 shrink-0 text-keio pt-0.5">第5水準</span>
-                                <span class="text-[11px]"><strong class="text-keio text-xs">第5水準の指導者</strong>：個人のエゴを完全に捨て、<strong class="text-keio-red bg-red-100 px-1">「チームの永続と選手の成長」</strong>のみに対して、圧倒的な熱狂と謙虚さを持つこと。</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-keio-red transition">
-                        <h3 class="font-bold text-keio-red text-md mb-2"><i class="fa-regular fa-clock mr-2"></i>時を告げるな、時計をつくれ</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed">その都度答えを教える（時を告げる）のではなく、我々がいなくても自ら考え進化し続ける<strong class="text-keio-red">「仕組みと文化（時計）」</strong>を創ることが指導陣の仕事です。</p>
-                    </div>
-
-                    <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition">
-                        <h3 class="font-bold text-blue-900 text-md mb-2"><i class="fa-solid fa-code-merge mr-2"></i>「ORの抑圧」を排し、「ANDの才能」を発揮する</h3>
-                        <p class="text-[11px] text-gray-700 leading-relaxed mb-3">人間は直感的に「Aか、Bか（ORの抑圧）」という二項対立で物事を考えがちです。しかし、真に偉大な組織は「AとBの両方（ANDの才能）」をどうやって同時に達成するかを追求します。</p>
-                        
-                        <div class="grid grid-cols-2 gap-3 mt-2 mb-3">
-                            <div class="bg-white p-3 rounded-lg border border-red-100 text-[10px] text-gray-500 text-center relative">
-                                <span class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-red-500 text-white text-[8px] px-2 py-0.5 rounded font-bold">排除すべき思考</span>
-                                <i class="fa-solid fa-xmark text-red-400 text-lg mb-1 block mt-1"></i>
-                                「短時間練習」<strong class="text-red-500 mx-1">OR</strong>「勝つ」
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border-b-2 border-blue-400 text-[10px] text-gray-800 text-center font-bold shadow-sm relative">
-                                <span class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-[8px] px-2 py-0.5 rounded font-bold">目指す思考</span>
-                                <i class="fa-solid fa-check text-blue-500 text-lg mb-1 block mt-1"></i>
-                                「短時間練習」<strong class="text-blue-600 mx-1 text-sm">AND</strong>「勝つ」
-                            </div>
-                        </div>
-                        <p class="text-[10px] text-gray-600 mt-2">「学業か部活か」「自主性か規律か」。相反するように見える要素を、システムと知恵によって高い次元で両立させることこそが、我々指導陣に求められるクリエイティビティです。</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-keio-dark text-white rounded-2xl p-6 shadow-xl relative overflow-hidden mt-8">
-                <div class="absolute -right-10 -top-10 text-9xl text-white/5"><i class="fa-solid fa-toolbox"></i></div>
-                <div class="flex items-center mb-4 relative z-10">
-                    <span class="text-xs font-bold px-2 py-1 rounded bg-white text-keio-dark mr-2">METHOD</span>
-                    <h2 class="text-lg font-bold">学生に渡す「3つの神器」</h2>
-                </div>
-                <p class="text-xs text-gray-300 mb-6 relative z-10 leading-relaxed">
-                    早熟な塾高生に、昭和の熱血指導（手取り足取り・感情論）は機能しません。我々は以下の3つの「ツール」を論理的に手渡すことにコミットします。
-                </p>
-                
-                <div class="space-y-3 relative z-10">
-                    <div class="flex items-center bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/20 hover:bg-white/20 transition">
-                        <div class="text-3xl mr-4 drop-shadow-md">🗺️</div>
-                        <div>
-                            <h4 class="font-bold text-sm text-keio-gold">地図 <span class="text-[10px] text-gray-300 font-normal ml-1">（理念・あるべき姿）</span></h4>
-                            <p class="text-[10px] text-gray-200 mt-1">社会の先導者という目的地と、部活の意義をクリアに示す。</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/20 hover:bg-white/20 transition">
-                        <div class="text-3xl mr-4 drop-shadow-md">🧭</div>
-                        <div>
-                            <h4 class="font-bold text-sm text-keio-gold">方位磁石 <span class="text-[10px] text-gray-300 font-normal ml-1">（戦術・マナー）</span></h4>
-                            <p class="text-[10px] text-gray-200 mt-1">正しい戦い方と、社会で通用する礼節を授ける。</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/20 hover:bg-white/20 transition">
-                        <div class="text-3xl mr-4 drop-shadow-md">📍</div>
-                        <div>
-                            <h4 class="font-bold text-sm text-keio-gold">現在地 <span class="text-[10px] text-gray-300 font-normal ml-1">（競技力・メタ認知）</span></h4>
-                            <p class="text-[10px] text-gray-200 mt-1">客観的評価を通じ、今の実力と現在地を自覚させる。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-6 p-4 bg-black/40 rounded-xl border border-white/10 relative z-10 shadow-inner">
-                    <h4 class="font-bold text-[13px] text-white mb-2 flex items-center">
-                        <i class="fa-solid fa-handshake-angle text-keio-gold mr-2 text-lg"></i>我々のスタンスと覚悟
-                    </h4>
-                    <p class="text-[11px] text-gray-300 leading-relaxed">
-                        この「3つの神器」を持ち、自ら歩もうとする学生は、いかに不器用であっても<strong class="text-white">絶対に見捨てず、監督以下の全メンバーで全力で育て続けます。</strong><br><br>
-                        しかし、万が一このツールを持つことを拒み、歩む意志を放棄する学生が現れた場合は、現場の指導陣の対応から<strong class="text-keio-red font-bold bg-white/10 px-1 rounded">総監督による特別指導（防波堤としての介入）</strong>へと速やかに切り替えます。これは、現場の熱量を削ぐノイズから、前を向く学生たちを守るための明確な線引きです。
-                    </p>
-                </div>
-            </section>
-
-            <section class="glass-card rounded-2xl p-6 border-t-[5px] border-keio mt-6">
-                <div class="flex items-center mb-3">
-                    <span class="text-xs font-bold px-2 py-1 rounded bg-gray-200 text-gray-600 mr-2 tracking-widest">SYSTEM</span>
-                    <h2 class="text-lg font-bold text-gray-900 flex items-center">360°評価（バグ検知システム）</h2>
-                </div>
-                
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                    <p class="text-[12px] text-gray-800 leading-relaxed font-medium">
-                        学生も巻き込んで全方位からの評価を実施しますが、その主旨は学生を評価することではありません。<strong class="text-keio border-b-2 border-keio-gold pb-0.5">我々社会人（指導陣）のメタ認知を高めるための取り組み</strong>です。
-                    </p>
-                    
-                    <div class="mt-4 pt-3 border-t border-gray-200 flex items-start">
-                        <i class="fa-solid fa-microchip text-xl text-gray-400 mr-3 mt-1"></i>
-                        <p class="text-[11px] text-gray-600 leading-relaxed">
-                            評価は指導陣や学生を「裁く」ためではなく、我々が前述の「3つの神器」を適切に渡せているか、指導の意図が正しく伝わっているかを確認する<strong class="text-gray-800">「鏡（デバッグ）」</strong>としてのみ運用します。エラー（バグ）が検知されれば、指導陣のシステムとアプローチを直ちにアップデートします。
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-    </div>
-  <div id="tab-tactics" class="tab-content">
     <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl">
-        <i class="fa-solid fa-chess-knight text-3xl text-keio-gold mb-3"></i>
-        <h1 class="text-2xl font-bold tracking-wider">戦術とシステム</h1>
-        <p class="text-xs text-keio-gold mt-2 opacity-80">競技力向上のためのシステムハック</p>
+      <i class="fa-solid fa-book-open text-3xl text-keio-gold mb-3"></i>
+      <h1 class="text-2xl font-bold tracking-wider">指導方針・哲学</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-80">名著『ビジョナリー・カンパニー』の叡智に基づくOS</p>
     </header>
 
     <main class="p-4 space-y-6 max-w-2xl mx-auto">
-        
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div class="flex items-center mb-4">
-                <span class="text-xs font-bold px-2 py-1 rounded tag-why mr-2">TACTICS</span>
-                <h2 class="text-lg font-bold text-gray-900">DF起点による「再現性」の追求</h2>
-            </div>
-            
-            <p class="text-sm text-gray-600 mb-5 leading-relaxed">
-                個人のセンスや閃きに依存するオフェンス（OF）から脱却し、組織として計算できる<strong class="text-keio">「再現性のあるシステム（DF）」</strong>からチームを固めます。
-            </p>
 
-            <ul class="space-y-4">
-                <li class="bg-blue-50 p-4 rounded-xl border border-blue-100 relative overflow-hidden">
-                    <div class="flex items-center mb-2">
-                        <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 shadow-sm"><i class="fa-solid fa-shield-halved text-sm"></i></div>
-                        <h3 class="font-bold text-md text-blue-900">習得ロードマップ</h3>
-                    </div>
-                    <div class="flex items-start space-x-3 mt-3">
-                        <div class="flex-1 text-center bg-white/60 p-2 rounded-lg border border-blue-200">
-                            <span class="block text-[10px] font-bold text-blue-600 mb-1">前半期</span>
-                            <span class="text-xs font-bold text-gray-800">パスラインDF<br>（プレス）</span>
-                        </div>
-                        <div class="flex items-center self-center text-blue-300">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                        <div class="flex-1 text-center bg-white/60 p-2 rounded-lg border border-blue-200">
-                            <span class="block text-[10px] font-bold text-blue-600 mb-1">年後半〜</span>
-                            <span class="text-xs font-bold text-gray-800">「下がり」の<br>完全習得</span>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-gray-600 mt-3 leading-relaxed">
-                        ※プレスによる圧迫から入り、最終的に高度な判断を要する「下がり」へ移行。段階的な守備の構築を徹底します。
-                    </p>
-                </li>
-
-                <li class="bg-purple-50 p-4 rounded-xl border border-purple-100">
-                    <div class="flex items-center mb-3">
-                        <div class="bg-purple-200 text-purple-700 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fa-solid fa-robot"></i></div>
-                        <h3 class="font-bold text-md text-purple-900">戦術脳をブーストする専用AI</h3>
-                    </div>
-                    <p class="text-xs text-gray-700 pl-11 leading-relaxed mb-4">
-                        複雑なシステム理解を助けるため、<strong class="text-purple-700">「我々の戦術メモ・過去のルール解釈」</strong>を学習させた専用AIを導入。24時間、いつでも戦術的な疑問を解消し、指導の属人化を防ぎます。
-                    </p>
-                    <div class="pl-11">
-                        <a href="https://notebooklm.google.com/notebook/f32db5c4-4931-4118-917e-dfb88bb1bea2?pli=1" target="_blank" class="inline-flex items-center justify-center bg-purple-600 text-white text-xs font-bold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 transition-colors w-full sm:w-auto">
-                            <i class="fa-solid fa-brain mr-2"></i>NotebookLM (戦術AI) を開く
-                        </a>
-                    </div>
-                </li>
-            </ul>
+      <section>
+        <div class="flex items-center mb-3">
+          <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">MINDSET</span>
+          <h2 class="text-lg font-bold text-gray-900">我々が持つべき哲学</h2>
         </div>
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="チームミーティング" class="img-placeholder shadow-sm">
+
+        <div class="space-y-4">
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-keio transition">
+            <h3 class="font-bold text-keio text-md mb-3"><i class="fa-solid fa-mountain mr-2"></i>第5水準のリーダーシップ</h3>
+            <p class="text-[11px] text-gray-600 leading-relaxed mb-4">我々指導陣は、属人的なカリスマ性に依存するのではなく、最も高い「第5水準」を常に意識し体現しなければなりません。</p>
+
+            <div class="space-y-2 text-[10px]">
+              <div class="flex items-center p-2 bg-gray-50 rounded text-gray-500">
+                <span class="font-bold w-12 shrink-0">第1水準</span>
+                <span><strong class="text-gray-700">有能な個人</strong>：個人の才能と知識で組織に貢献する。</span>
+              </div>
+              <div class="flex items-center p-2 bg-gray-50 rounded text-gray-500">
+                <span class="font-bold w-12 shrink-0">第2水準</span>
+                <span><strong class="text-gray-700">貢献するチームメンバー</strong>：チームの目標達成のために協力する。</span>
+              </div>
+              <div class="flex items-center p-2 bg-gray-50 rounded text-gray-500">
+                <span class="font-bold w-12 shrink-0">第3水準</span>
+                <span><strong class="text-gray-700">有能な管理者</strong>：人と資源を組織化し、目標を追求する。</span>
+              </div>
+              <div class="flex p-2 bg-gray-50 rounded text-gray-500 border-l-2 border-gray-300">
+                <span class="font-bold w-12 shrink-0 pt-0.5">第4水準</span>
+                <span><strong class="text-gray-800">有能なリーダー</strong>：明確なビジョンを示し、高い基準を追求する。<br><span class="text-[9px] text-keio-red">※カリスマ型リーダーはここに留まり、本人が去ると組織が崩壊するリスクを抱えます。</span></span>
+              </div>
+              <div class="flex p-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-900 shadow-sm relative mt-3">
+                <i class="fa-solid fa-crown absolute -top-2 -right-2 text-keio-gold text-lg drop-shadow"></i>
+                <span class="font-bold text-xs w-12 shrink-0 text-keio pt-0.5">第5水準</span>
+                <span class="text-[11px]"><strong class="text-keio text-xs">第5水準の指導者</strong>：個人のエゴを完全に捨て、<strong class="text-keio-red bg-red-100 px-1">「チームの永続と選手の成長」</strong>のみに対して、圧倒的な熱狂と謙虚さを持つこと。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-keio-red transition">
+            <h3 class="font-bold text-keio-red text-md mb-2"><i class="fa-regular fa-clock mr-2"></i>時を告げるな、時計をつくれ</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">その都度答えを教える（時を告げる）のではなく、我々がいなくても自ら考え進化し続ける<strong class="text-keio-red">「仕組みと文化（時計）」</strong>を創ることが指導陣の仕事です。</p>
+          </div>
+
+          <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition">
+            <h3 class="font-bold text-blue-900 text-md mb-2"><i class="fa-solid fa-code-merge mr-2"></i>「ORの抑圧」を排し、「ANDの才能」を発揮する</h3>
+            <p class="text-[11px] text-gray-700 leading-relaxed mb-3">人間は直感的に「Aか、Bか（ORの抑圧）」という二項対立で物事を考えがちです。しかし、真に偉大な組織は「AとBの両方（ANDの才能）」をどうやって同時に達成するかを追求します。</p>
+
+            <div class="grid grid-cols-2 gap-3 mt-2 mb-3">
+              <div class="bg-white p-3 rounded-lg border border-red-100 text-[10px] text-gray-500 text-center relative">
+                <span class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-red-500 text-white text-[8px] px-2 py-0.5 rounded font-bold">排除すべき思考</span>
+                <i class="fa-solid fa-xmark text-red-400 text-lg mb-1 block mt-1"></i>
+                「短時間練習」<strong class="text-red-500 mx-1">OR</strong>「勝つ」
+              </div>
+              <div class="bg-white p-3 rounded-lg border-b-2 border-blue-400 text-[10px] text-gray-800 text-center font-bold shadow-sm relative">
+                <span class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-[8px] px-2 py-0.5 rounded font-bold">目指す思考</span>
+                <i class="fa-solid fa-check text-blue-500 text-lg mb-1 block mt-1"></i>
+                「短時間練習」<strong class="text-blue-600 mx-1 text-sm">AND</strong>「勝つ」
+              </div>
+            </div>
+            <p class="text-[10px] text-gray-600 mt-2">「学業か部活か」「自主性か規律か」。相反するように見える要素を、システムと知恵によって高い次元で両立させることこそが、我々指導陣に求められるクリエイティビティです。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-keio-dark text-white rounded-2xl p-6 shadow-xl relative overflow-hidden mt-8">
+        <div class="absolute -right-10 -top-10 text-9xl text-white/5"><i class="fa-solid fa-toolbox"></i></div>
+        <div class="flex items-center mb-4 relative z-10">
+          <span class="text-xs font-bold px-2 py-1 rounded bg-white text-keio-dark mr-2">METHOD</span>
+          <h2 class="text-lg font-bold">学生に渡す「3つの神器」</h2>
+        </div>
+        <p class="text-xs text-gray-300 mb-6 relative z-10 leading-relaxed">
+          早熟な塾高生に、昭和の熱血指導（手取り足取り・感情論）は機能しません。我々は以下の3つの「ツール」を論理的に手渡すことにコミットします。
+        </p>
+
+        <div class="space-y-3 relative z-10">
+          <div class="flex items-center bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/20 hover:bg-white/20 transition">
+            <div class="text-3xl mr-4 drop-shadow-md">🗺️</div>
+            <div>
+              <h4 class="font-bold text-sm text-keio-gold">地図 <span class="text-[10px] text-gray-300 font-normal ml-1">（理念・あるべき姿）</span></h4>
+              <p class="text-[10px] text-gray-200 mt-1">社会の先導者という目的地と、部活の意義をクリアに示す。</p>
+            </div>
+          </div>
+          <div class="flex items-center bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/20 hover:bg-white/20 transition">
+            <div class="text-3xl mr-4 drop-shadow-md">🧭</div>
+            <div>
+              <h4 class="font-bold text-sm text-keio-gold">方位磁石 <span class="text-[10px] text-gray-300 font-normal ml-1">（戦術・マナー）</span></h4>
+              <p class="text-[10px] text-gray-200 mt-1">正しい戦い方と、社会で通用する礼節を授ける。</p>
+            </div>
+          </div>
+          <div class="flex items-center bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/20 hover:bg-white/20 transition">
+            <div class="text-3xl mr-4 drop-shadow-md">📍</div>
+            <div>
+              <h4 class="font-bold text-sm text-keio-gold">現在地 <span class="text-[10px] text-gray-300 font-normal ml-1">（競技力・メタ認知）</span></h4>
+              <p class="text-[10px] text-gray-200 mt-1">客観的評価を通じ、今の実力と現在地を自覚させる。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-black/40 rounded-xl border border-white/10 relative z-10 shadow-inner">
+          <h4 class="font-bold text-[13px] text-white mb-2 flex items-center">
+            <i class="fa-solid fa-handshake-angle text-keio-gold mr-2 text-lg"></i>我々のスタンスと覚悟
+          </h4>
+          <p class="text-[11px] text-gray-300 leading-relaxed">
+            この「3つの神器」を持ち、自ら歩もうとする学生は、いかに不器用であっても<strong class="text-white">絶対に見捨てず、監督以下の全メンバーで全力で育て続けます。</strong><br><br>
+            しかし、万が一このツールを持つことを拒み、歩む意志を放棄する学生が現れた場合は、現場の指導陣の対応から<strong class="text-keio-red font-bold bg-white/10 px-1 rounded">総監督による特別指導（防波堤としての介入）</strong>へと速やかに切り替えます。これは、現場の熱量を削ぐノイズから、前を向く学生たちを守るための明確な線引きです。
+          </p>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-2xl p-6 border-t-[5px] border-keio mt-6">
+        <div class="flex items-center mb-3">
+          <span class="text-xs font-bold px-2 py-1 rounded bg-gray-200 text-gray-600 mr-2 tracking-widest">SYSTEM</span>
+          <h2 class="text-lg font-bold text-gray-900 flex items-center">360°評価（バグ検知システム）</h2>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+          <p class="text-[12px] text-gray-800 leading-relaxed font-medium">
+            学生も巻き込んで全方位からの評価を実施しますが、その主旨は学生を評価することではありません。<strong class="text-keio border-b-2 border-keio-gold pb-0.5">我々社会人（指導陣）のメタ認知を高めるための取り組み</strong>です。
+          </p>
+
+          <div class="mt-4 pt-3 border-t border-gray-200 flex items-start">
+            <i class="fa-solid fa-microchip text-xl text-gray-400 mr-3 mt-1"></i>
+            <p class="text-[11px] text-gray-600 leading-relaxed">
+              評価は指導陣や学生を「裁く」ためではなく、我々が前述の「3つの神器」を適切に渡せているか、指導の意図が正しく伝わっているかを確認する<strong class="text-gray-800">「鏡（デバッグ）」</strong>としてのみ運用します。エラー（バグ）が検知されれば、指導陣のシステムとアプローチを直ちにアップデートします。
+            </p>
+          </div>
+        </div>
+      </section>
+
     </main>
-</div>
+  </div>
+  <div id="tab-tactics" class="tab-content">
+    <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl">
+      <i class="fa-solid fa-chess-knight text-3xl text-keio-gold mb-3"></i>
+      <h1 class="text-2xl font-bold tracking-wider">戦術とシステム</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-80">競技力向上のためのシステムハック</p>
+    </header>
+
+    <main class="p-4 space-y-6 max-w-2xl mx-auto">
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="flex items-center mb-4">
+          <span class="text-xs font-bold px-2 py-1 rounded tag-why mr-2">TACTICS</span>
+          <h2 class="text-lg font-bold text-gray-900">DF起点による「再現性」の追求</h2>
+        </div>
+
+        <p class="text-sm text-gray-600 mb-5 leading-relaxed">
+          個人のセンスや閃きに依存するオフェンス（OF）から脱却し、組織として計算できる<strong class="text-keio">「再現性のあるシステム（DF）」</strong>からチームを固めます。
+        </p>
+
+        <ul class="space-y-4">
+          <li class="bg-blue-50 p-4 rounded-xl border border-blue-100 relative overflow-hidden">
+            <div class="flex items-center mb-2">
+              <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 shadow-sm"><i class="fa-solid fa-shield-halved text-sm"></i></div>
+              <h3 class="font-bold text-md text-blue-900">習得ロードマップ</h3>
+            </div>
+            <div class="flex items-start space-x-3 mt-3">
+              <div class="flex-1 text-center bg-white/60 p-2 rounded-lg border border-blue-200">
+                <span class="block text-[10px] font-bold text-blue-600 mb-1">前半期</span>
+                <span class="text-xs font-bold text-gray-800">パスラインDF<br>（プレス）</span>
+              </div>
+              <div class="flex items-center self-center text-blue-300">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+              <div class="flex-1 text-center bg-white/60 p-2 rounded-lg border border-blue-200">
+                <span class="block text-[10px] font-bold text-blue-600 mb-1">年後半〜</span>
+                <span class="text-xs font-bold text-gray-800">「下がり」の<br>完全習得</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-gray-600 mt-3 leading-relaxed">
+              ※プレスによる圧迫から入り、最終的に高度な判断を要する「下がり」へ移行。段階的な守備の構築を徹底します。
+            </p>
+          </li>
+
+          <li class="bg-purple-50 p-4 rounded-xl border border-purple-100">
+            <div class="flex items-center mb-3">
+              <div class="bg-purple-200 text-purple-700 w-8 h-8 rounded-full flex items-center justify-center mr-3"><i class="fa-solid fa-robot"></i></div>
+              <h3 class="font-bold text-md text-purple-900">戦術脳をブーストする専用AI</h3>
+            </div>
+            <p class="text-xs text-gray-700 pl-11 leading-relaxed mb-4">
+              複雑なシステム理解を助けるため、<strong class="text-purple-700">「我々の戦術メモ・過去のルール解釈」</strong>を学習させた専用AIを導入。24時間、いつでも戦術的な疑問を解消し、指導の属人化を防ぎます。
+            </p>
+            <div class="pl-11">
+              <a href="https://notebooklm.google.com/notebook/f32db5c4-4931-4118-917e-dfb88bb1bea2?pli=1" target="_blank" class="inline-flex items-center justify-center bg-purple-600 text-white text-xs font-bold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 transition-colors w-full sm:w-auto">
+                <i class="fa-solid fa-brain mr-2"></i>NotebookLM (戦術AI) を開く
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </main>
+  </div>
   <div id="tab-program" class="tab-content">
     <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-            <svg width="100%" height="100%"><pattern id="pattern-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#pattern-grid)" /></svg>
-        </div>
-        <i class="fa-solid fa-chart-line text-3xl text-keio-gold mb-3 relative"></i>
-        <h1 class="text-2xl font-bold tracking-wider relative font-serif">育成プログラム</h1>
-        <p class="text-xs text-keio-gold mt-2 opacity-90 relative tracking-widest">7-SEASONS STRATEGY & GROWTH CURVE</p>
+      <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+        <svg width="100%" height="100%">
+          <pattern id="pattern-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#pattern-grid)" />
+        </svg>
+      </div>
+      <i class="fa-solid fa-chart-line text-3xl text-keio-gold mb-3 relative"></i>
+      <h1 class="text-2xl font-bold tracking-wider relative font-serif">育成プログラム</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-90 relative tracking-widest">7-SEASONS STRATEGY & GROWTH CURVE</p>
     </header>
 
     <main class="p-4 space-y-8 max-w-2xl mx-auto pb-20">
-        
-        <section class="space-y-4">
-            <div class="flex items-center space-x-2 px-2">
-                <div class="w-1.5 h-6 bg-keio-gold"></div>
-                <h2 class="text-xl font-bold text-gray-900">スケジュールの再定義</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 gap-3 px-1">
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start space-x-4">
-                    <div class="flex flex-col items-center shrink-0">
-                        <div class="w-3 h-3 bg-keio-gold rounded-full mb-2 shadow-[0_0_8px_rgba(212,175,55,0.6)]"></div>
-                        <div class="w-0.5 h-16 bg-gray-100"></div>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <h3 class="text-lg font-black text-gray-800">プレシーズン <span class="text-xs font-normal text-gray-400 ml-1">（基礎構築）</span></h3>
-                            <span class="text-xs font-bold text-keio-gold">9月 〜 11月</span>
-                        </div>
-                        <p class="text-xs text-gray-600 leading-relaxed">代替わり・新戦力への土台作り。組織OSを入れ替え、次世代の核となるスキルとマインドを徹底的に叩き込む。</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start space-x-4">
-                    <div class="flex flex-col items-center shrink-0">
-                        <div class="w-3 h-3 bg-keio-light rounded-full mb-2 shadow-[0_0_8px_rgba(0,77,153,0.4)]"></div>
-                        <div class="w-0.5 h-16 bg-gray-100"></div>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <h3 class="text-lg font-black text-gray-800">オフシーズン <span class="text-xs font-normal text-gray-400 ml-1">（合宿・強化）</span></h3>
-                            <span class="text-xs font-bold text-keio-light">12月 〜 3月</span>
-                        </div>
-                        <p class="text-xs text-gray-600 leading-relaxed">週末練習を減らし入試等に配慮しつつ、冬合宿で集中強化。個のパラメータを限界まで引き上げる「修行」の期間。</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-keio-red/20 border flex items-start space-x-4">
-                    <div class="flex flex-col items-center shrink-0">
-                        <div class="w-3 h-3 bg-keio-red rounded-full shadow-[0_0_8px_rgba(200,16,46,0.5)]"></div>
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center mb-1">
-                            <h3 class="text-lg font-black text-keio-red">シーズン <span class="text-xs font-normal text-gray-400 ml-1">（実践期）</span></h3>
-                            <span class="text-xs font-bold text-keio-red">4月 〜 8月</span>
-                        </div>
-                        <p class="text-xs text-gray-600 leading-relaxed font-medium">実践・大会へのピーキング。これまでの積み上げを全て結果に変える。負けられない戦いの中で「最高値」を更新し続ける。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="glass-card rounded-3xl p-6 border-t-4 border-keio-red shadow-xl overflow-hidden relative">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h2 class="text-lg font-black text-gray-900 leading-none">成長の分岐点</h2>
-                    <p class="text-[10px] text-gray-500 mt-1 uppercase tracking-tighter">Growth Curve Simulation</p>
-                </div>
-                <div class="flex gap-2">
-                    <span class="flex items-center text-[10px] font-bold"><span class="w-3 h-3 bg-keio-red rounded-full mr-1"></span>継続</span>
-                    <span class="flex items-center text-[10px] font-bold text-gray-400"><span class="w-3 h-3 bg-gray-400 rounded-full mr-1"></span>鈍化</span>
-                </div>
-            </div>
-
-            <div class="relative h-72 mb-8 bg-slate-50 rounded-xl border border-slate-100 p-2 overflow-hidden">
-                <svg viewBox="0 0 400 200" class="w-full h-full drop-shadow-sm">
-                    <line x1="0" y1="180" x2="400" y2="180" stroke="#e2e8f0" stroke-width="1" />
-                    <line x1="0" y1="180" x2="0" y2="0" stroke="#e2e8f0" stroke-width="1" />
-                    <path id="curve-good" d="M 0 180 Q 80 160 150 130 T 300 60 T 400 10" fill="none" stroke="#C8102E" stroke-width="4" stroke-linecap="round" />
-                    <path id="curve-bad" d="M 0 180 Q 80 160 150 150 L 350 145 L 400 135" fill="none" stroke="#334155" stroke-width="4" stroke-dasharray="2 2" stroke-opacity="0.6" stroke-linecap="round" />
-                    <g class="cursor-pointer" onclick="updateGrowthSim(0)">
-                        <circle cx="60" cy="165" r="8" fill="white" stroke="#003366" stroke-width="2" />
-                        <text x="60" y="195" font-size="10" text-anchor="middle" font-weight="bold" fill="#003366">①</text>
-                    </g>
-                    <g class="cursor-pointer" onclick="updateGrowthSim(1)">
-                        <circle cx="180" cy="120" r="8" fill="white" stroke="#003366" stroke-width="2" />
-                        <text x="180" y="195" font-size="10" text-anchor="middle" font-weight="bold" fill="#003366">②</text>
-                    </g>
-                    <g class="cursor-pointer" onclick="updateGrowthSim(2)">
-                        <circle cx="340" cy="50" r="8" fill="white" stroke="#003366" stroke-width="2" />
-                        <text x="340" y="195" font-size="10" text-anchor="middle" font-weight="bold" fill="#003366">③</text>
-                    </g>
-                    <line id="scrubber" x1="60" y1="0" x2="60" y2="180" stroke="#D4AF37" stroke-width="2" />
-                </svg>
-                <div id="sim-box-good" class="absolute z-30"></div>
-                <div id="sim-box-bad" class="absolute z-30"></div>
-            </div>
-            
-            <div class="flex items-center justify-center space-x-4">
-                <button onclick="updateGrowthSim(0)" class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-keio hover:text-white transition shadow-sm">初期</button>
-                <button onclick="updateGrowthSim(1)" class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-keio hover:text-white transition shadow-sm">中期</button>
-                <button onclick="updateGrowthSim(2)" class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-keio hover:text-white transition shadow-sm">後期</button>
-            </div>
-        </section>
-
-        <section class="space-y-4">
-            <div class="flex items-center justify-between px-2">
-                <div class="flex items-center space-x-2">
-                    <div class="w-1.5 h-6 bg-keio"></div>
-                    <h2 class="text-xl font-bold text-gray-900 uppercase tracking-tight">7-SEASONS ROADMAP</h2>
-                </div>
-                <span class="text-[9px] font-bold text-keio-red border border-keio-red/30 px-2 py-0.5 rounded-full uppercase tracking-widest bg-red-50">Master Curriculum</span>
-            </div>
-
-            <div class="relative group">
-                <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-                <div class="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm bg-white">
-                    <table class="w-full text-left border-collapse min-w-[850px] table-fixed">
-                        <thead>
-                            <tr class="bg-keio text-white text-[10px]">
-                                <th class="py-2 px-1 w-10 border-r border-white/10 sticky left-0 bg-keio z-20 shadow-[2px_0_5px_rgba(0,0,0,0.1)] text-center">分類</th>
-                                <th class="py-2 px-1 w-24 border-r border-white/10 sticky left-10 bg-keio z-20 shadow-[2px_0_5px_rgba(0,0,0,0.1)] text-center">項目</th>
-                                <th class="py-2 px-2 text-center border-r border-white/10 bg-red-50/10"><span class="block opacity-70">1st Season</span>(4-8月)</th>
-                                <th class="py-2 px-2 text-center border-r border-white/10 bg-yellow-50/10"><span class="block opacity-70">1st Pre</span>(9-11月)</th>
-                                <th class="py-2 px-2 text-center border-r border-white/10 bg-blue-50/10"><span class="block opacity-70">1st Off</span>(12-3月)</th>
-                                <th class="py-2 px-2 text-center border-r border-white/10 bg-red-50/10"><span class="block opacity-70">2nd Season</span>(4-8月)</th>
-                                <th class="py-2 px-2 text-center border-r border-white/10 bg-yellow-50/10"><span class="block opacity-70">2nd Pre</span>(9-11月)</th>
-                                <th class="py-2 px-2 text-center border-r border-white/10 bg-blue-50/10"><span class="block opacity-70">2nd Off</span>(12-3月)</th>
-                                <th class="py-2 px-2 text-center bg-gray-800 text-keio-gold font-bold"><span class="block opacity-70">Final Season</span>(4-8月)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-[11px] leading-snug">
-                            <tr class="border-b border-gray-100">
-                                <td rowspan="2" class="py-2 px-1 font-bold text-keio bg-slate-50 sticky left-0 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] text-center border-r">学<br>生</td>
-                                <td class="py-2 px-2 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-center">心</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5">学校への適応<br>帰属意識の醸成<br>『先輩すごい』</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5">試合経験への欲望<br>『おれもやってみたい』</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5">ポジションの意識<br>『おれできるかも』</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5 font-medium text-red-700 italic">A:必死に付いていく<br>B:立ち位置を理解</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5">最高学年への自覚<br>『おれがやるのか』</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5">圧倒的当事者意識<br>『おれがやる』</td>
-                                <td class="py-2 px-2 bg-gray-50 font-bold">「自分たちの代」の完成</td>
-                            </tr>
-                            <tr class="border-b-2 border-gray-200">
-                                <td class="py-2 px-2 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-center">技・体</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5">水慣れ<br>基礎動作の習得（巻き足・蹴り足等）</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5">応用スキル（対人動作）<br>速攻の定石習得</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5">適性と技術の一致</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5">A:チームの中心人物へ<br>B:特化型人材への舵切り</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5">１つ上のレベルへ</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5">新戦術への適応</td>
-                                <td class="py-2 px-2 bg-gray-50 font-bold">連携の先鋭化に全集中</td>
-                            </tr>
-                            <tr class="border-b border-gray-100">
-                                <td rowspan="2" class="py-2 px-1 font-bold text-keio-red bg-slate-50 sticky left-0 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] text-center border-r text-[10px]">指<br>導<br>者</td>
-                                <td class="py-2 px-1 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-center">やること</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5 text-gray-500">一緒に楽しむ<br>見せて教える</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500">試合機会の提供（１点取るなど、個人の喜び）<br>苦手な基礎の克服</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500">成功体験の醸成（チームで勝つなど、組織の喜び）</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5 text-red-600 font-medium">Bチーム向け<br>自分の立ち位置を踏まえた努力の仕方を伝える</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500">特化型人材として個を再定義</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500">連携パターンの最終確認</td>
-                                <td class="py-2 px-2 bg-gray-50 font-bold text-keio">戦術の完全遂行</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-1 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-[10px] text-center tracking-tighter">指導ポイント</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5 text-gray-500 italic">個々の特性見極め</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500 italic">「軸足」の修正</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500 italic">解像度向上への<br>問いかけ</td>
-                                <td class="py-2 px-2 border-r bg-red-50/5 text-red-600 italic">挫折から這い上がる伴走</td>
-                                <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500 italic">代替わりリスク管理</td>
-                                <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500 italic">「尖った人材」の最終調整</td>
-                                <td class="py-2 px-2 bg-gray-50 font-bold text-keio-gold italic">適材適所の最大活用</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="flex justify-center mt-3 text-[10px] text-gray-400 items-center">
-                    <i class="fa-solid fa-arrows-left-right mr-2"></i>表を左右にスクロールして詳細を確認できます
-                </div>
-            </div>
-        </section>
-
-        <div class="relative py-10 mt-6">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                <div class="w-full border-t-2 border-gray-200 border-dashed"></div>
-            </div>
-            <div class="relative flex justify-center">
-                <span class="bg-[#f0f4f8] px-4 text-sm font-black text-gray-800 tracking-widest flex items-center border-2 border-gray-200 rounded-full py-1">
-                    <i class="fa-solid fa-fire text-keio-red mr-2"></i>MOTIVATION DESIGN
-                </span>
-            </div>
+      <section class="space-y-4">
+        <div class="flex items-center space-x-2 px-2">
+          <div class="w-1.5 h-6 bg-keio-gold"></div>
+          <h2 class="text-xl font-bold text-gray-900">スケジュールの再定義</h2>
         </div>
 
-        <div class="text-center mb-8 px-2">
-            <p class="text-sm text-gray-700 leading-relaxed font-medium">
-                人が自律的に成長するためには、現状に満足させない<strong class="text-keio-red bg-red-100 px-1 rounded mx-0.5">「適正な摩擦（悔しさ・競争）」</strong>と、その挑戦や利他的な行動を肯定する<strong class="text-keio-gold bg-yellow-100 px-1 rounded mx-0.5">「多面的な称賛（安心・報酬）」</strong>の両輪が不可欠です。
-            </p>
+        <div class="grid grid-cols-1 gap-3 px-1">
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start space-x-4">
+            <div class="flex flex-col items-center shrink-0">
+              <div class="w-3 h-3 bg-keio-gold rounded-full mb-2 shadow-[0_0_8px_rgba(212,175,55,0.6)]"></div>
+              <div class="w-0.5 h-16 bg-gray-100"></div>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="text-lg font-black text-gray-800">プレシーズン <span class="text-xs font-normal text-gray-400 ml-1">（基礎構築）</span></h3>
+                <span class="text-xs font-bold text-keio-gold">9月 〜 11月</span>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed">代替わり・新戦力への土台作り。組織OSを入れ替え、次世代の核となるスキルとマインドを徹底的に叩き込む。</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-start space-x-4">
+            <div class="flex flex-col items-center shrink-0">
+              <div class="w-3 h-3 bg-keio-light rounded-full mb-2 shadow-[0_0_8px_rgba(0,77,153,0.4)]"></div>
+              <div class="w-0.5 h-16 bg-gray-100"></div>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="text-lg font-black text-gray-800">オフシーズン <span class="text-xs font-normal text-gray-400 ml-1">（合宿・強化）</span></h3>
+                <span class="text-xs font-bold text-keio-light">12月 〜 3月</span>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed">週末練習を減らし入試等に配慮しつつ、冬合宿で集中強化。個のパラメータを限界まで引き上げる「修行」の期間。</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-keio-red/20 border flex items-start space-x-4">
+            <div class="flex flex-col items-center shrink-0">
+              <div class="w-3 h-3 bg-keio-red rounded-full shadow-[0_0_8px_rgba(200,16,46,0.5)]"></div>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="text-lg font-black text-keio-red">シーズン <span class="text-xs font-normal text-gray-400 ml-1">（実践期）</span></h3>
+                <span class="text-xs font-bold text-keio-red">4月 〜 8月</span>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed font-medium">実践・大会へのピーキング。これまでの積み上げを全て結果に変える。負けられない戦いの中で「最高値」を更新し続ける。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-3xl p-6 border-t-4 border-keio-red shadow-xl overflow-hidden relative">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-lg font-black text-gray-900 leading-none">成長の分岐点</h2>
+            <p class="text-[10px] text-gray-500 mt-1 uppercase tracking-tighter">Growth Curve Simulation</p>
+          </div>
+          <div class="flex gap-2">
+            <span class="flex items-center text-[10px] font-bold"><span class="w-3 h-3 bg-keio-red rounded-full mr-1"></span>継続</span>
+            <span class="flex items-center text-[10px] font-bold text-gray-400"><span class="w-3 h-3 bg-gray-400 rounded-full mr-1"></span>鈍化</span>
+          </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 shadow-sm border-t-[5px] border-keio-red">
-            <div class="flex items-center mb-4">
-                <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">FRICTION</span>
-                <h2 class="text-lg font-bold text-gray-900">適正な摩擦の創出</h2>
-            </div>
-            <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="プールの水しぶき" class="img-placeholder shadow-sm">
-            <div class="space-y-6">
-                <div class="flex">
-                    <div class="w-10 text-center"><i class="fa-solid fa-scale-balanced text-2xl text-gray-500"></i></div>
-                    <div class="pl-2">
-                        <h3 class="text-sm font-bold text-gray-800 mb-1">A vs B 選考会の実施</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed">
-                            試合期に入る前、比較検討される緊張感を作ります。可視化した評価を伝えることで、「何をどう頑張ればいいのか」を思考させます。
-                        </p>
-                    </div>
-                </div>
-                <div class="flex">
-                    <div class="w-10 text-center"><i class="fa-solid fa-chart-line text-2xl text-keio-red"></i></div>
-                    <div class="pl-2">
-                        <h3 class="text-sm font-bold text-gray-800 mb-1">独自リーグ＠日吉 (ELOレーティング)</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed mb-3">
-                            Halosportsを活用し、チャレンジャーチームも「負けたらランキングが下がる」というプレッシャーの中で試合をする機会を創出します。
-                        </p>
-                        <a href="https://www.halosports.jp/" target="_blank" class="inline-flex items-center justify-center text-[11px] font-bold text-white bg-keio hover:bg-keio-light px-4 py-2 rounded-lg transition-colors shadow-md">
-                            <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i>Halosports 公式ページへ
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="relative h-72 mb-8 bg-slate-50 rounded-xl border border-slate-100 p-2 overflow-hidden">
+          <svg viewBox="0 0 400 200" class="w-full h-full drop-shadow-sm">
+            <line x1="0" y1="180" x2="400" y2="180" stroke="#e2e8f0" stroke-width="1" />
+            <line x1="0" y1="180" x2="0" y2="0" stroke="#e2e8f0" stroke-width="1" />
+            <path id="curve-good" d="M 0 180 Q 80 160 150 130 T 300 60 T 400 10" fill="none" stroke="#C8102E" stroke-width="4" stroke-linecap="round" />
+            <path id="curve-bad" d="M 0 180 Q 80 160 150 150 L 350 145 L 400 135" fill="none" stroke="#334155" stroke-width="4" stroke-dasharray="2 2" stroke-opacity="0.6" stroke-linecap="round" />
+            <g class="cursor-pointer" onclick="updateGrowthSim(0)">
+              <circle cx="60" cy="165" r="8" fill="white" stroke="#003366" stroke-width="2" />
+              <text x="60" y="195" font-size="10" text-anchor="middle" font-weight="bold" fill="#003366">①</text>
+            </g>
+            <g class="cursor-pointer" onclick="updateGrowthSim(1)">
+              <circle cx="180" cy="120" r="8" fill="white" stroke="#003366" stroke-width="2" />
+              <text x="180" y="195" font-size="10" text-anchor="middle" font-weight="bold" fill="#003366">②</text>
+            </g>
+            <g class="cursor-pointer" onclick="updateGrowthSim(2)">
+              <circle cx="340" cy="50" r="8" fill="white" stroke="#003366" stroke-width="2" />
+              <text x="340" y="195" font-size="10" text-anchor="middle" font-weight="bold" fill="#003366">③</text>
+            </g>
+            <line id="scrubber" x1="60" y1="0" x2="60" y2="180" stroke="#D4AF37" stroke-width="2" />
+          </svg>
+          <div id="sim-box-good" class="absolute z-30"></div>
+          <div id="sim-box-bad" class="absolute z-30"></div>
         </div>
 
-        <section class="glass-card rounded-2xl p-6 border-t-[5px] border-keio-gold relative overflow-hidden">
-            <div class="absolute -right-6 -bottom-6 opacity-5 rotate-12">
-                <i class="fa-solid fa-trophy text-[120px]"></i>
+        <div class="flex items-center justify-center space-x-4">
+          <button onclick="updateGrowthSim(0)" class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-keio hover:text-white transition shadow-sm">初期</button>
+          <button onclick="updateGrowthSim(1)" class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-keio hover:text-white transition shadow-sm">中期</button>
+          <button onclick="updateGrowthSim(2)" class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-keio hover:text-white transition shadow-sm">後期</button>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <div class="flex items-center justify-between px-2">
+          <div class="flex items-center space-x-2">
+            <div class="w-1.5 h-6 bg-keio"></div>
+            <h2 class="text-xl font-bold text-gray-900 uppercase tracking-tight">7-SEASONS ROADMAP</h2>
+          </div>
+          <span class="text-[9px] font-bold text-keio-red border border-keio-red/30 px-2 py-0.5 rounded-full uppercase tracking-widest bg-red-50">Master Curriculum</span>
+        </div>
+
+        <div class="relative group">
+          <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+          <div class="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm bg-white">
+            <table class="w-full text-left border-collapse min-w-[850px] table-fixed">
+              <thead>
+                <tr class="bg-keio text-white text-[10px]">
+                  <th class="py-2 px-1 w-10 border-r border-white/10 sticky left-0 bg-keio z-20 shadow-[2px_0_5px_rgba(0,0,0,0.1)] text-center">分類</th>
+                  <th class="py-2 px-1 w-24 border-r border-white/10 sticky left-10 bg-keio z-20 shadow-[2px_0_5px_rgba(0,0,0,0.1)] text-center">項目</th>
+                  <th class="py-2 px-2 text-center border-r border-white/10 bg-red-50/10"><span class="block opacity-70">1st Season</span>(4-8月)</th>
+                  <th class="py-2 px-2 text-center border-r border-white/10 bg-yellow-50/10"><span class="block opacity-70">1st Pre</span>(9-11月)</th>
+                  <th class="py-2 px-2 text-center border-r border-white/10 bg-blue-50/10"><span class="block opacity-70">1st Off</span>(12-3月)</th>
+                  <th class="py-2 px-2 text-center border-r border-white/10 bg-red-50/10"><span class="block opacity-70">2nd Season</span>(4-8月)</th>
+                  <th class="py-2 px-2 text-center border-r border-white/10 bg-yellow-50/10"><span class="block opacity-70">2nd Pre</span>(9-11月)</th>
+                  <th class="py-2 px-2 text-center border-r border-white/10 bg-blue-50/10"><span class="block opacity-70">2nd Off</span>(12-3月)</th>
+                  <th class="py-2 px-2 text-center bg-gray-800 text-keio-gold font-bold"><span class="block opacity-70">Final Season</span>(4-8月)</th>
+                </tr>
+              </thead>
+              <tbody class="text-[11px] leading-snug">
+                <tr class="border-b border-gray-100">
+                  <td rowspan="2" class="py-2 px-1 font-bold text-keio bg-slate-50 sticky left-0 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] text-center border-r">学<br>生</td>
+                  <td class="py-2 px-2 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-center">心</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5">学校への適応<br>帰属意識の醸成<br>『先輩すごい』</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5">試合経験への欲望<br>『おれもやってみたい』</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5">ポジションの意識<br>『おれできるかも』</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5 font-medium text-red-700 italic">A:必死に付いていく<br>B:立ち位置を理解</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5">最高学年への自覚<br>『おれがやるのか』</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5">圧倒的当事者意識<br>『おれがやる』</td>
+                  <td class="py-2 px-2 bg-gray-50 font-bold">「自分たちの代」の完成</td>
+                </tr>
+                <tr class="border-b-2 border-gray-200">
+                  <td class="py-2 px-2 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-center">技・体</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5">水慣れ<br>基礎動作の習得（巻き足・蹴り足等）</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5">応用スキル（対人動作）<br>速攻の定石習得</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5">適性と技術の一致</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5">A:チームの中心人物へ<br>B:特化型人材への舵切り</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5">１つ上のレベルへ</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5">新戦術への適応</td>
+                  <td class="py-2 px-2 bg-gray-50 font-bold">連携の先鋭化に全集中</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td rowspan="2" class="py-2 px-1 font-bold text-keio-red bg-slate-50 sticky left-0 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] text-center border-r text-[10px]">指<br>導<br>者</td>
+                  <td class="py-2 px-1 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-center">やること</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5 text-gray-500">一緒に楽しむ<br>見せて教える</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500">試合機会の提供（１点取るなど、個人の喜び）<br>苦手な基礎の克服</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500">成功体験の醸成（チームで勝つなど、組織の喜び）</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5 text-red-600 font-medium">Bチーム向け<br>自分の立ち位置を踏まえた努力の仕方を伝える</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500">特化型人材として個を再定義</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500">連携パターンの最終確認</td>
+                  <td class="py-2 px-2 bg-gray-50 font-bold text-keio">戦術の完全遂行</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-1 font-bold text-gray-700 bg-white sticky left-10 z-20 shadow-[2px_0_5px_rgba(0,0,0,0.05)] border-r text-[10px] text-center tracking-tighter">指導ポイント</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5 text-gray-500 italic">個々の特性見極め</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500 italic">「軸足」の修正</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500 italic">解像度向上への<br>問いかけ</td>
+                  <td class="py-2 px-2 border-r bg-red-50/5 text-red-600 italic">挫折から這い上がる伴走</td>
+                  <td class="py-2 px-2 border-r bg-yellow-50/5 text-gray-500 italic">代替わりリスク管理</td>
+                  <td class="py-2 px-2 border-r bg-blue-50/5 text-gray-500 italic">「尖った人材」の最終調整</td>
+                  <td class="py-2 px-2 bg-gray-50 font-bold text-keio-gold italic">適材適所の最大活用</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="flex justify-center mt-3 text-[10px] text-gray-400 items-center">
+            <i class="fa-solid fa-arrows-left-right mr-2"></i>表を左右にスクロールして詳細を確認できます
+          </div>
+        </div>
+      </section>
+
+      <div class="relative py-10 mt-6">
+        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t-2 border-gray-200 border-dashed"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-[#f0f4f8] px-4 text-sm font-black text-gray-800 tracking-widest flex items-center border-2 border-gray-200 rounded-full py-1">
+            <i class="fa-solid fa-fire text-keio-red mr-2"></i>MOTIVATION DESIGN
+          </span>
+        </div>
+      </div>
+
+      <div class="text-center mb-8 px-2">
+        <p class="text-sm text-gray-700 leading-relaxed font-medium">
+          人が自律的に成長するためには、現状に満足させない<strong class="text-keio-red bg-red-100 px-1 rounded mx-0.5">「適正な摩擦（悔しさ・競争）」</strong>と、その挑戦や利他的な行動を肯定する<strong class="text-keio-gold bg-yellow-100 px-1 rounded mx-0.5">「多面的な称賛（安心・報酬）」</strong>の両輪が不可欠です。
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm border-t-[5px] border-keio-red">
+        <div class="flex items-center mb-4">
+          <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">FRICTION</span>
+          <h2 class="text-lg font-bold text-gray-900">適正な摩擦の創出</h2>
+        </div>
+        <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="プールの水しぶき" class="img-placeholder shadow-sm">
+        <div class="space-y-6">
+          <div class="flex">
+            <div class="w-10 text-center"><i class="fa-solid fa-scale-balanced text-2xl text-gray-500"></i></div>
+            <div class="pl-2">
+              <h3 class="text-sm font-bold text-gray-800 mb-1">A vs B 選考会の実施</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                試合期に入る前、比較検討される緊張感を作ります。可視化した評価を伝えることで、「何をどう頑張ればいいのか」を思考させます。
+              </p>
             </div>
-            <div class="flex items-center mb-6 border-b border-gray-200 pb-2">
-                <span class="text-xs font-black px-2 py-1 rounded tag-why mr-2">REWARD</span>
-                <h2 class="text-lg font-bold text-gray-900 leading-none">自律を加速する表彰制度</h2>
+          </div>
+          <div class="flex">
+            <div class="w-10 text-center"><i class="fa-solid fa-chart-line text-2xl text-keio-red"></i></div>
+            <div class="pl-2">
+              <h3 class="text-sm font-bold text-gray-800 mb-1">独自リーグ＠日吉 (ELOレーティング)</h3>
+              <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                Halosportsを活用し、チャレンジャーチームも「負けたらランキングが下がる」というプレッシャーの中で試合をする機会を創出します。
+              </p>
+              <a href="https://www.halosports.jp/" target="_blank" class="inline-flex items-center justify-center text-[11px] font-bold text-white bg-keio hover:bg-keio-light px-4 py-2 rounded-lg transition-colors shadow-md">
+                <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i>Halosports 公式ページへ
+              </a>
             </div>
-            <div class="space-y-4 relative z-10">
-                <div class="flex bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="w-10 shrink-0"><i class="fa-solid fa-trophy text-2xl text-yellow-500"></i></div>
-                    <div>
-                        <h3 class="font-bold text-sm text-gray-900">ベストギバー賞</h3>
-                        <p class="text-[10px] text-gray-600 mt-1">「当たり前の基準（準備、自己管理）」を守り、目立たない所で利他的に行動する者を称賛。</p>
-                    </div>
-                </div>
-                <div class="flex bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="w-10 shrink-0"><i class="fa-solid fa-lightbulb text-2xl text-blue-500"></i></div>
-                    <div>
-                        <h3 class="font-bold text-sm text-gray-900">折笠礎功労賞</h3>
-                        <p class="text-[10px] text-gray-600 mt-1">「なぜやるか」を考え、練習の質や仕組みをハック（改善提案）した思考力を称える。</p>
-                    </div>
-                </div>
-                <div class="flex bg-white/80 backdrop-blur-sm p-4 rounded-xl border-l-4 border-l-keio-red shadow-sm">
-                    <div class="w-10 shrink-0"><i class="fa-solid fa-rocket text-2xl text-keio-red"></i></div>
-                    <div>
-                        <h3 class="font-bold text-sm text-gray-900">ビヨンドチャレンジ賞</h3>
-                        <p class="text-[10px] text-gray-600 mt-1">一番無謀な挑戦をし、盛大に失敗した学生の背中を強く押す。指導陣が最大の理解者となる。</p>
-                    </div>
-                </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="glass-card rounded-2xl p-6 border-t-[5px] border-keio-gold relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 opacity-5 rotate-12">
+          <i class="fa-solid fa-trophy text-[120px]"></i>
+        </div>
+        <div class="flex items-center mb-6 border-b border-gray-200 pb-2">
+          <span class="text-xs font-black px-2 py-1 rounded tag-why mr-2">REWARD</span>
+          <h2 class="text-lg font-bold text-gray-900 leading-none">自律を加速する表彰制度</h2>
+        </div>
+        <div class="space-y-4 relative z-10">
+          <div class="flex bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-gray-100 shadow-sm">
+            <div class="w-10 shrink-0"><i class="fa-solid fa-trophy text-2xl text-yellow-500"></i></div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900">ベストギバー賞</h3>
+              <p class="text-[10px] text-gray-600 mt-1">「当たり前の基準（準備、自己管理）」を守り、目立たない所で利他的に行動する者を称賛。</p>
             </div>
-        </section>
+          </div>
+          <div class="flex bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-gray-100 shadow-sm">
+            <div class="w-10 shrink-0"><i class="fa-solid fa-lightbulb text-2xl text-blue-500"></i></div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900">折笠礎功労賞</h3>
+              <p class="text-[10px] text-gray-600 mt-1">「なぜやるか」を考え、練習の質や仕組みをハック（改善提案）した思考力を称える。</p>
+            </div>
+          </div>
+          <div class="flex bg-white/80 backdrop-blur-sm p-4 rounded-xl border-l-4 border-l-keio-red shadow-sm">
+            <div class="w-10 shrink-0"><i class="fa-solid fa-rocket text-2xl text-keio-red"></i></div>
+            <div>
+              <h3 class="font-bold text-sm text-gray-900">ビヨンドチャレンジ賞</h3>
+              <p class="text-[10px] text-gray-600 mt-1">一番無謀な挑戦をし、盛大に失敗した学生の背中を強く押す。指導陣が最大の理解者となる。</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <script>
-        // 成長シミュレーションのスクリプト（既存ロジックを継承）
-        function updateGrowthSim(phase) {
-            const scrubber = document.getElementById('scrubber');
-            const boxGood = document.getElementById('sim-box-good');
-            const boxBad = document.getElementById('sim-box-bad');
-            
-            const phases = [
-                {
-                    x: 60, isUnified: true, title: "【誰もが通る初期成長】",
-                    text: "①入部ボーナス（高１：4~8月）<br>水球という新しい競技に触れ、0→1の成長を全身で感じる時期。",
-                    goodTop: "15%", badTop: "15%"
-                },
-                {
-                    x: 180, isUnified: false, goodTitle: "【継続成長の道】", badTitle: "【鈍化の兆候】",
-                    good: "②成功体験の蓄積（高１：12~3月）<br>勝利の喜びを理解し、負けが本気で悔しくなる。",
-                    bad: "②中だるみ・停滞（高１：12~3月）<br>先輩が抜け、自分を追い込めない。",
-                    goodTop: "10%", badTop: "55%"
-                },
-                {
-                    x: 340, isUnified: false, goodTitle: "【継続成長の道】", badTitle: "【鈍化の兆候】",
-                    good: "③自世代ボーナス（高２：9~11月）<br>教える立場になり、学びが爆発的に深化する。",
-                    bad: "③諦めと小競り合い（高２：9~11月）<br>後輩との実力差が縮まり、不毛な摩擦が生まれる。",
-                    goodTop: "5%", badTop: "65%"
-                }
-            ];
-
-            const p = phases[phase];
-            scrubber.setAttribute('x1', p.x);
-            scrubber.setAttribute('x2', p.x);
-            
-            [boxGood, boxBad].forEach(b => {
-                b.style.opacity = '0';
-                b.style.transform = 'scale(0.95)';
-            });
-            
-            setTimeout(() => {
-                if (p.isUnified) {
-                    boxGood.style.top = p.goodTop;
-                    boxGood.className = "absolute left-6 right-6 bg-white/95 backdrop-blur-sm border-l-4 border-keio-gold p-3 shadow-xl rounded-lg transition-all duration-300 z-30";
-                    boxGood.innerHTML = `<h4 class="text-[11px] font-black text-keio-dark mb-1">${p.title}</h4><p class="text-[10px] text-gray-700 leading-tight">${p.text}</p>`;
-                    boxBad.style.display = 'none';
-                    boxGood.style.opacity = '1';
-                    boxGood.style.transform = 'scale(1)';
-                } else {
-                    boxGood.style.top = p.goodTop;
-                    boxBad.style.top = p.badTop;
-                    boxGood.className = "absolute left-2 w-44 bg-white/95 backdrop-blur-sm border-l-4 border-keio-red p-2 shadow-lg rounded-r-lg transition-all duration-300 z-30";
-                    boxBad.className = "absolute right-2 w-44 bg-slate-900/85 backdrop-blur-sm border-l-4 border-gray-400 p-2 shadow-lg rounded-l-lg transition-all duration-300 z-30";
-                    boxGood.innerHTML = `<h4 class="text-[10px] font-black text-keio-red mb-1">${p.goodTitle}</h4><p class="text-[9px] text-gray-700 leading-tight">${p.good}</p>`;
-                    boxBad.style.display = 'block';
-                    boxBad.innerHTML = `<h4 class="text-[10px] font-black text-gray-200 mb-1">${p.badTitle}</h4><p class="text-[9px] text-gray-100 leading-tight">${p.bad}</p>`;
-                    boxGood.style.opacity = '1';
-                    boxBad.style.opacity = '1';
-                    boxGood.style.transform = 'scale(1)';
-                    boxBad.style.transform = 'scale(1)';
-                }
-            }, 100);
-        }
-        document.addEventListener('DOMContentLoaded', () => updateGrowthSim(0));
+      // 成長シミュレーションのスクリプト（既存ロジックを継承）
+      function updateGrowthSim(phase) {
+        const scrubber = document.getElementById('scrubber');
+        const boxGood = document.getElementById('sim-box-good');
+        const boxBad = document.getElementById('sim-box-bad');
+        const phases = [{
+            x: 60,
+            isUnified: true,
+            title: "【誰もが通る初期成長】",
+            text: "①入部ボーナス（高１：4~8月）<br>水球という新しい競技に触れ、0→1の成長を全身で感じる時期。",
+            goodTop: "15%",
+            badTop: "15%"
+          },
+          {
+            x: 180,
+            isUnified: false,
+            goodTitle: "【継続成長の道】",
+            badTitle: "【鈍化の兆候】",
+            good: "②成功体験の蓄積（高１：12~3月）<br>勝利の喜びを理解し、負けが本気で悔しくなる。",
+            bad: "②中だるみ・停滞（高１：12~3月）<br>先輩が抜け、自分を追い込めない。",
+            goodTop: "10%",
+            badTop: "55%"
+          },
+          {
+            x: 340,
+            isUnified: false,
+            goodTitle: "【継続成長の道】",
+            badTitle: "【鈍化の兆候】",
+            good: "③自世代ボーナス（高２：9~11月）<br>教える立場になり、学びが爆発的に深化する。",
+            bad: "③諦めと小競り合い（高２：9~11月）<br>後輩との実力差が縮まり、不毛な摩擦が生まれる。",
+            goodTop: "5%",
+            badTop: "65%"
+          }
+        ];
+        const p = phases[phase];
+        scrubber.setAttribute('x1', p.x);
+        scrubber.setAttribute('x2', p.x);
+        [boxGood, boxBad].forEach(b => {
+          b.style.opacity = '0';
+          b.style.transform = 'scale(0.95)';
+        });
+        setTimeout(() => {
+          if (p.isUnified) {
+            boxGood.style.top = p.goodTop;
+            boxGood.className = "absolute left-6 right-6 bg-white/95 backdrop-blur-sm border-l-4 border-keio-gold p-3 shadow-xl rounded-lg transition-all duration-300 z-30";
+            boxGood.innerHTML = `<h4 class="text-[11px] font-black text-keio-dark mb-1">${p.title}</h4><p class="text-[10px] text-gray-700 leading-tight">${p.text}</p>`;
+            boxBad.style.display = 'none';
+            boxGood.style.opacity = '1';
+            boxGood.style.transform = 'scale(1)';
+          } else {
+            boxGood.style.top = p.goodTop;
+            boxBad.style.top = p.badTop;
+            boxGood.className = "absolute left-2 w-44 bg-white/95 backdrop-blur-sm border-l-4 border-keio-red p-2 shadow-lg rounded-r-lg transition-all duration-300 z-30";
+            boxBad.className = "absolute right-2 w-44 bg-slate-900/85 backdrop-blur-sm border-l-4 border-gray-400 p-2 shadow-lg rounded-l-lg transition-all duration-300 z-30";
+            boxGood.innerHTML = `<h4 class="text-[10px] font-black text-keio-red mb-1">${p.goodTitle}</h4><p class="text-[9px] text-gray-700 leading-tight">${p.good}</p>`;
+            boxBad.style.display = 'block';
+            boxBad.innerHTML = `<h4 class="text-[10px] font-black text-gray-200 mb-1">${p.badTitle}</h4><p class="text-[9px] text-gray-100 leading-tight">${p.bad}</p>`;
+            boxGood.style.opacity = '1';
+            boxBad.style.opacity = '1';
+            boxGood.style.transform = 'scale(1)';
+            boxBad.style.transform = 'scale(1)';
+          }
+        }, 100);
+      }
+      document.addEventListener('DOMContentLoaded', () => updateGrowthSim(0));
     </script>
-</div>  
+  </div>
   <div id="tab-diplomacy" class="tab-content">
-        <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl">
-            <i class="fa-solid fa-globe text-3xl text-keio-gold mb-3"></i>
-            <h1 class="text-2xl font-bold tracking-wider">エコシステムの構築</h1>
-            <p class="text-xs text-keio-gold mt-2 opacity-80">新歓・外交戦略</p>
-        </header>
-
-        <main class="p-4 space-y-6 max-w-2xl mx-auto">
-            <img src="https://images.unsplash.com/photo-1543351611-58f69d7c1781?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="握手・連携" class="img-placeholder shadow-md">
-
-            <div class="grid grid-cols-1 gap-5">
-                <div class="glass-card rounded-2xl p-6 border-l-4 border-keio">
-                    <div class="flex items-center mb-3">
-                        <i class="fa-solid fa-school-flag text-2xl text-keio mr-3"></i>
-                        <h2 class="text-md font-bold text-gray-900">高校ネットワーク</h2>
-                    </div>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        高偏差値の高校（明中・城北等）と連携し大学勧誘へのパスを作る。また、神奈川県下の高校と密に付き合い、互いを高め合うピア（仲間）効果を狙います。
-                    </p>
-                </div>
-
-                <div class="glass-card rounded-2xl p-6 border-l-4 border-green-600">
-                    <div class="flex items-center mb-3">
-                        <i class="fa-solid fa-child-reaching text-2xl text-green-600 mr-3"></i>
-                        <h2 class="text-md font-bold text-gray-900">ジュニアネットワーク</h2>
-                    </div>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
-                        受け皿のないジュニア（千葉等）との連携を維持します。
-                    </p>
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                        <strong class="text-keio-red text-xs block mb-1">【重要】慶應受験へのスタンス</strong>
-                        <p class="text-[11px] font-bold text-gray-800 mb-1">来るもの拒まず、去る者追わず。</p>
-                        <p class="text-[10px] text-gray-600">指名買い（直接スカウト）は不可。塾を紹介したり、我々の考え方や求める人材を解説する程度に留めること。</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6 border-t-4 border-keio-gold shadow-md">
-                <div class="flex items-center mb-5 border-b border-gray-200 pb-3">
-                    <span class="text-xs font-bold px-2 py-1 rounded bg-yellow-100 text-yellow-800 mr-2">INFO</span>
-                    <h2 class="text-lg font-bold text-gray-900"><i class="fa-solid fa-graduation-cap text-keio-gold mr-2"></i>推薦入試のサポートに関して</h2>
-                </div>
-                
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-sm font-bold text-keio mb-3 flex items-center">
-                            <i class="fa-solid fa-hands-holding-circle mr-2"></i>サポート
-                        </h3>
-                        <ul class="space-y-3">
-                            <li class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-keio-light"></div>
-                                <div class="flex items-center mb-1 pl-2">
-                                    <i class="fa-solid fa-chart-bar text-keio-light mr-2 text-sm"></i>
-                                    <h4 class="font-bold text-[11px] text-gray-800">学業成績の確認</h4>
-                                </div>
-                                <p class="text-[10px] text-gray-600 pl-8 leading-relaxed">例年<strong class="text-keio-red">総点40以上</strong>が目安。「2」以下の評価が一つでもあると非常に危険なラインとなります。</p>
-                            </li>
-                            <li class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-keio-light"></div>
-                                <div class="flex items-center mb-1 pl-2">
-                                    <i class="fa-solid fa-user-tie text-keio-light mr-2 text-sm"></i>
-                                    <h4 class="font-bold text-[11px] text-gray-800">塾の求める人物像</h4>
-                                </div>
-                                <p class="text-[10px] text-gray-600 pl-8 leading-relaxed">「水球をするために来る」というストーリーはNG。<strong class="text-keio">将来の目標に対する今の自分、そのための水球</strong>といったように、水球が主目的ではない一貫したストーリー構築が望ましいです。</p>
-                            </li>
-                            <li class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-keio-light"></div>
-                                <div class="flex items-center mb-1 pl-2">
-                                    <i class="fa-solid fa-comments text-keio-light mr-2 text-sm"></i>
-                                    <h4 class="font-bold text-[11px] text-gray-800">面接対策</h4>
-                                </div>
-                                <p class="text-[10px] text-gray-600 pl-8 leading-relaxed">合格者からの情報を集約し、オススメの塾等との連携をサポートします。<span class="bg-gray-50 text-gray-500 px-1 rounded inline-block mt-1">※希望者にはOBによる面接対策の実施も応相談</span></p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-gradient-to-br from-keio-dark to-keio p-5 rounded-xl text-white shadow-inner relative overflow-hidden">
-                        <i class="fa-solid fa-fire-flame-curved absolute -right-2 -bottom-2 text-6xl text-white/10"></i>
-                        <h3 class="text-sm font-bold text-keio-gold mb-3 relative z-10 flex items-center">
-                            <i class="fa-solid fa-bolt mr-2"></i>モチベート
-                        </h3>
-                        <div class="relative z-10">
-                            <h4 class="font-bold text-xs text-white mb-2 border-b border-white/20 pb-1 inline-block">慶應水球部に入る意味・意義・価値</h4>
-                            <p class="text-[11px] text-gray-200 leading-relaxed">
-                                我々の革新的な取り組みや、OBの就職事情・強固なネットワークなどを具体的に紹介します。また、実際に練習に参加してもらうことで、現場の熱量や文化を直接体感する機会も提供します。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-    </div>
-  <div id="tab-ops" class="tab-content">
     <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl">
-        <i class="fa-solid fa-gears text-3xl text-keio-gold mb-3"></i>
-        <h1 class="text-2xl font-bold tracking-wider">チーム運用・タスク</h1>
-        <p class="text-xs text-keio-gold mt-2 opacity-80">日々のコミュニケーションと業務フロー</p>
+      <i class="fa-solid fa-globe text-3xl text-keio-gold mb-3"></i>
+      <h1 class="text-2xl font-bold tracking-wider">エコシステムの構築</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-80">新歓・外交戦略</p>
     </header>
 
     <main class="p-4 space-y-6 max-w-2xl mx-auto">
-        
-        <div class="glass-card rounded-2xl p-6 border-t-[5px] border-indigo-500">
-            <div class="flex items-center mb-4">
-                <span class="text-xs font-bold px-2 py-1 rounded bg-indigo-100 text-indigo-800 mr-2">TOOL</span>
-                <h2 class="text-lg font-bold text-gray-900">コミュニケーション設計</h2>
-            </div>
-            <p class="text-xs text-gray-600 mb-5 leading-relaxed">
-                過去ログの残らないSlackを廃止し、基本的なやり取りは全てDiscordに集約します。情報の緊急度と宛先に応じて、以下のようにツールを使い分けます。
-            </p>
-            
-            <div class="space-y-4">
-                <div class="border border-indigo-200 rounded-xl overflow-hidden shadow-sm">
-                    <div class="bg-indigo-50 px-4 py-3 border-b border-indigo-100 flex items-center">
-                        <i class="fa-brands fa-discord text-2xl text-indigo-600 mr-3"></i>
-                        <h3 class="font-bold text-indigo-900">Discord <span class="text-[10px] font-normal text-indigo-600 ml-1 bg-white px-2 py-0.5 rounded-full border border-indigo-200">メイン拠点</span></h3>
-                    </div>
-                    <div class="p-4 space-y-4 bg-white">
-                        <div>
-                            <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">部内全体</span>
-                            <ul class="text-[11px] text-gray-700 ml-1 space-y-1.5">
-                                <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>部則 / 戦略・戦術 / 練習メニュー等</li>
-                                <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>練習日程・場所 (Google Sheets連携)</li>
-                                <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>試合動画 (YouTube連携)</li>
-                            </ul>
-                        </div>
-                        <div class="border-t border-gray-100 pt-3">
-                            <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">指導陣 ⇔ 個人</span>
-                            <ul class="text-[11px] text-gray-700 ml-1 space-y-1.5">
-                                <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>出欠連絡</li>
-                                <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>日々の練習記録や質問・相談</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+      <img src="https://images.unsplash.com/photo-1543351611-58f69d7c1781?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="握手・連携" class="img-placeholder shadow-md">
 
-                <div class="border border-green-200 rounded-xl overflow-hidden shadow-sm">
-                    <div class="bg-green-50 px-4 py-3 border-b border-green-100 flex items-center">
-                        <i class="fa-brands fa-line text-2xl text-green-600 mr-3"></i>
-                        <h3 class="font-bold text-green-900">LINE公式 <span class="text-[10px] font-normal text-green-600 ml-1 bg-white px-2 py-0.5 rounded-full border border-green-200">緊急・重要</span></h3>
-                    </div>
-                    <div class="p-4 bg-white">
-                        <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">部内全体</span>
-                        <p class="text-[11px] text-gray-700 ml-1 leading-relaxed"><i class="fa-solid fa-bolt text-green-500 mr-1.5"></i>即時性が必要な連絡、および確実な周知が求められる重要度の高い内容に限定して配信。</p>
-                    </div>
-                </div>
-
-                <div class="border border-pink-200 rounded-xl overflow-hidden shadow-sm">
-                    <div class="bg-gradient-to-r from-pink-50 to-orange-50 px-4 py-3 border-b border-pink-100 flex items-center">
-                        <i class="fa-brands fa-instagram text-2xl text-pink-600 mr-3"></i>
-                        <h3 class="font-bold text-pink-900">Instagram / HP <span class="text-[10px] font-normal text-pink-600 ml-1 bg-white px-2 py-0.5 rounded-full border border-pink-200">対外発信</span></h3>
-                    </div>
-                    <div class="p-4 bg-white">
-                        <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">部 ⇔ 世の中</span>
-                        <ul class="text-[11px] text-gray-700 ml-1 space-y-1.5">
-                            <li class="flex items-start"><i class="fa-solid fa-bullhorn text-pink-400 mt-0.5 mr-2"></i>広報活動・活動報告</li>
-                            <li class="flex items-start"><i class="fa-solid fa-handshake-angle text-pink-400 mt-0.5 mr-2"></i>新入生向けリクルートコンテンツ</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      <div class="grid grid-cols-1 gap-5">
+        <div class="glass-card rounded-2xl p-6 border-l-4 border-keio">
+          <div class="flex items-center mb-3">
+            <i class="fa-solid fa-school-flag text-2xl text-keio mr-3"></i>
+            <h2 class="text-md font-bold text-gray-900">高校ネットワーク</h2>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            高偏差値の高校（明中・城北等）と連携し大学勧誘へのパスを作る。また、神奈川県下の高校と密に付き合い、互いを高め合うピア（仲間）効果を狙います。
+          </p>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 border-t-[5px] border-keio-gold">
-            <div class="flex items-center mb-4">
-                <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">TASK</span>
-                <h2 class="text-lg font-bold text-gray-900">定期タスク・調整フロー</h2>
-            </div>
-            <p class="text-xs text-gray-600 mb-6 leading-relaxed">
-                調整業務のボトルネックを防ぐため、誰が・どの順番でボールを持つかを明確化します。
-            </p>
-
-            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm mb-6">
-                <h3 class="font-bold text-sm text-keio mb-4 flex items-center"><i class="fa-solid fa-water text-blue-500 mr-2"></i>プール割 ＆ 練習試合の調整 <span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded ml-2 font-normal">月次</span></h3>
-                
-                <div class="timeline-container space-y-5">
-                    <div class="relative">
-                        <div class="timeline-dot bg-gray-300 border-gray-300"></div>
-                        <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-bold">大学マネージャー</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium">基本ドラフトの作成・提示</p>
-                    </div>
-                    <div class="relative">
-                        <div class="timeline-dot bg-blue-500 border-blue-500"></div>
-                        <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span> <span class="text-[10px] text-gray-400 ml-1">w/ 各担任</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium leading-relaxed">各担任と協議の上、修正案を作成。</p>
-                        <div class="bg-orange-50 border border-orange-100 rounded p-2 mt-2">
-                            <p class="text-[10px] text-orange-800"><i class="fa-solid fa-shuffle mr-1"></i>このタイミングで「他校との練習試合の希望日」も併せて総監督に提示する。</p>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <div class="timeline-dot bg-keio-dark border-keio-dark"></div>
-                        <span class="text-[10px] bg-gray-800 text-white px-2 py-0.5 rounded font-bold">総監督</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium leading-relaxed">学事日程との重複・無理のない日程かの最終チェック（他校との練習試合の調整を開始）</p>
-                    </div>
-                    <div class="relative">
-                        <div class="timeline-dot bg-blue-500 border-blue-500"></div>
-                        <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium">大学マネージャーへ最終案を提出。</p>
-                    </div>
-                    <div class="relative">
-                        <div class="timeline-dot bg-green-500 border-green-500"></div>
-                        <span class="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded font-bold">監督・戦術・総監督</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium">確定後、速やかに練習日程表を更新。</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-                <h3 class="font-bold text-sm text-keio-red mb-4 flex items-center"><i class="fa-solid fa-dumbbell text-keio-red mr-2"></i>トレル調整 <span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded ml-2 font-normal">数週ごと断続的</span></h3>
-                
-                <div class="timeline-container space-y-5">
-                    <div class="relative">
-                        <div class="timeline-dot bg-blue-500 border-blue-500"></div>
-                        <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span> <span class="text-[10px] text-gray-400 ml-1">w/ 各担任</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium">協議の上、頻度・曜日・メニューを決定。</p>
-                    </div>
-                    <div class="relative">
-                        <div class="timeline-dot bg-keio border-keio"></div>
-                        <span class="text-[10px] bg-keio/10 text-keio px-2 py-0.5 rounded font-bold border border-keio/20">上級生 ＋ 担任</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium">学校側（施設管理者）との利用調整・申請。</p>
-                    </div>
-                    <div class="relative">
-                        <div class="timeline-dot bg-green-500 border-green-500"></div>
-                        <span class="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span>
-                        <p class="text-[11px] text-gray-800 mt-1 font-medium">確定後、速やかに練習日程表を更新。</p>
-                    </div>
-                </div>
-            </div>
-
+        <div class="glass-card rounded-2xl p-6 border-l-4 border-green-600">
+          <div class="flex items-center mb-3">
+            <i class="fa-solid fa-child-reaching text-2xl text-green-600 mr-3"></i>
+            <h2 class="text-md font-bold text-gray-900">ジュニアネットワーク</h2>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            受け皿のないジュニア（千葉等）との連携を維持します。
+          </p>
+          <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+            <strong class="text-keio-red text-xs block mb-1">【重要】慶應受験へのスタンス</strong>
+            <p class="text-[11px] font-bold text-gray-800 mb-1">来るもの拒まず、去る者追わず。</p>
+            <p class="text-[10px] text-gray-600">指名買い（直接スカウト）は不可。塾を紹介したり、我々の考え方や求める人材を解説する程度に留めること。</p>
+          </div>
         </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border-t-4 border-keio-gold shadow-md">
+        <div class="flex items-center mb-5 border-b border-gray-200 pb-3">
+          <span class="text-xs font-bold px-2 py-1 rounded bg-yellow-100 text-yellow-800 mr-2">INFO</span>
+          <h2 class="text-lg font-bold text-gray-900"><i class="fa-solid fa-graduation-cap text-keio-gold mr-2"></i>推薦入試のサポートに関して</h2>
+        </div>
+
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-sm font-bold text-keio mb-3 flex items-center">
+              <i class="fa-solid fa-hands-holding-circle mr-2"></i>サポート
+            </h3>
+            <ul class="space-y-3">
+              <li class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-keio-light"></div>
+                <div class="flex items-center mb-1 pl-2">
+                  <i class="fa-solid fa-chart-bar text-keio-light mr-2 text-sm"></i>
+                  <h4 class="font-bold text-[11px] text-gray-800">学業成績の確認</h4>
+                </div>
+                <p class="text-[10px] text-gray-600 pl-8 leading-relaxed">例年<strong class="text-keio-red">総点40以上</strong>が目安。「2」以下の評価が一つでもあると非常に危険なラインとなります。</p>
+              </li>
+              <li class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-keio-light"></div>
+                <div class="flex items-center mb-1 pl-2">
+                  <i class="fa-solid fa-user-tie text-keio-light mr-2 text-sm"></i>
+                  <h4 class="font-bold text-[11px] text-gray-800">塾の求める人物像</h4>
+                </div>
+                <p class="text-[10px] text-gray-600 pl-8 leading-relaxed">「水球をするために来る」というストーリーはNG。<strong class="text-keio">将来の目標に対する今の自分、そのための水球</strong>といったように、水球が主目的ではない一貫したストーリー構築が望ましいです。</p>
+              </li>
+              <li class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-keio-light"></div>
+                <div class="flex items-center mb-1 pl-2">
+                  <i class="fa-solid fa-comments text-keio-light mr-2 text-sm"></i>
+                  <h4 class="font-bold text-[11px] text-gray-800">面接対策</h4>
+                </div>
+                <p class="text-[10px] text-gray-600 pl-8 leading-relaxed">合格者からの情報を集約し、オススメの塾等との連携をサポートします。<span class="bg-gray-50 text-gray-500 px-1 rounded inline-block mt-1">※希望者にはOBによる面接対策の実施も応相談</span></p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-gradient-to-br from-keio-dark to-keio p-5 rounded-xl text-white shadow-inner relative overflow-hidden">
+            <i class="fa-solid fa-fire-flame-curved absolute -right-2 -bottom-2 text-6xl text-white/10"></i>
+            <h3 class="text-sm font-bold text-keio-gold mb-3 relative z-10 flex items-center">
+              <i class="fa-solid fa-bolt mr-2"></i>モチベート
+            </h3>
+            <div class="relative z-10">
+              <h4 class="font-bold text-xs text-white mb-2 border-b border-white/20 pb-1 inline-block">慶應水球部に入る意味・意義・価値</h4>
+              <p class="text-[11px] text-gray-200 leading-relaxed">
+                我々の革新的な取り組みや、OBの就職事情・強固なネットワークなどを具体的に紹介します。また、実際に練習に参加してもらうことで、現場の熱量や文化を直接体感する機会も提供します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </main>
-</div>
+  </div>
+  <div id="tab-ops" class="tab-content">
+    <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl">
+      <i class="fa-solid fa-gears text-3xl text-keio-gold mb-3"></i>
+      <h1 class="text-2xl font-bold tracking-wider">チーム運用・タスク</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-80">日々のコミュニケーションと業務フロー</p>
+    </header>
+
+    <main class="p-4 space-y-6 max-w-2xl mx-auto">
+
+      <div class="glass-card rounded-2xl p-6 border-t-[5px] border-indigo-500">
+        <div class="flex items-center mb-4">
+          <span class="text-xs font-bold px-2 py-1 rounded bg-indigo-100 text-indigo-800 mr-2">TOOL</span>
+          <h2 class="text-lg font-bold text-gray-900">コミュニケーション設計</h2>
+        </div>
+        <p class="text-xs text-gray-600 mb-5 leading-relaxed">
+          過去ログの残らないSlackを廃止し、基本的なやり取りは全てDiscordに集約します。情報の緊急度と宛先に応じて、以下のようにツールを使い分けます。
+        </p>
+
+        <div class="space-y-4">
+          <div class="border border-indigo-200 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-indigo-50 px-4 py-3 border-b border-indigo-100 flex items-center">
+              <i class="fa-brands fa-discord text-2xl text-indigo-600 mr-3"></i>
+              <h3 class="font-bold text-indigo-900">Discord <span class="text-[10px] font-normal text-indigo-600 ml-1 bg-white px-2 py-0.5 rounded-full border border-indigo-200">メイン拠点</span></h3>
+            </div>
+            <div class="p-4 space-y-4 bg-white">
+              <div>
+                <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">部内全体</span>
+                <ul class="text-[11px] text-gray-700 ml-1 space-y-1.5">
+                  <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>部則 / 戦略・戦術 / 練習メニュー等</li>
+                  <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>練習日程・場所 (Google Sheets連携)</li>
+                  <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>試合動画 (YouTube連携)</li>
+                </ul>
+              </div>
+              <div class="border-t border-gray-100 pt-3">
+                <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">指導陣 ⇔ 個人</span>
+                <ul class="text-[11px] text-gray-700 ml-1 space-y-1.5">
+                  <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>出欠連絡</li>
+                  <li class="flex items-start"><i class="fa-solid fa-check text-indigo-400 mt-0.5 mr-2"></i>日々の練習記録や質問・相談</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-green-200 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-green-50 px-4 py-3 border-b border-green-100 flex items-center">
+              <i class="fa-brands fa-line text-2xl text-green-600 mr-3"></i>
+              <h3 class="font-bold text-green-900">LINE公式 <span class="text-[10px] font-normal text-green-600 ml-1 bg-white px-2 py-0.5 rounded-full border border-green-200">緊急・重要</span></h3>
+            </div>
+            <div class="p-4 bg-white">
+              <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">部内全体</span>
+              <p class="text-[11px] text-gray-700 ml-1 leading-relaxed"><i class="fa-solid fa-bolt text-green-500 mr-1.5"></i>即時性が必要な連絡、および確実な周知が求められる重要度の高い内容に限定して配信。</p>
+            </div>
+          </div>
+
+          <div class="border border-pink-200 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-gradient-to-r from-pink-50 to-orange-50 px-4 py-3 border-b border-pink-100 flex items-center">
+              <i class="fa-brands fa-instagram text-2xl text-pink-600 mr-3"></i>
+              <h3 class="font-bold text-pink-900">Instagram / HP <span class="text-[10px] font-normal text-pink-600 ml-1 bg-white px-2 py-0.5 rounded-full border border-pink-200">対外発信</span></h3>
+            </div>
+            <div class="p-4 bg-white">
+              <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-bold inline-block mb-2">部 ⇔ 世の中</span>
+              <ul class="text-[11px] text-gray-700 ml-1 space-y-1.5">
+                <li class="flex items-start"><i class="fa-solid fa-bullhorn text-pink-400 mt-0.5 mr-2"></i>広報活動・活動報告</li>
+                <li class="flex items-start"><i class="fa-solid fa-handshake-angle text-pink-400 mt-0.5 mr-2"></i>新入生向けリクルートコンテンツ</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border-t-[5px] border-keio-gold">
+        <div class="flex items-center mb-4">
+          <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">TASK</span>
+          <h2 class="text-lg font-bold text-gray-900">定期タスク・調整フロー</h2>
+        </div>
+        <p class="text-xs text-gray-600 mb-6 leading-relaxed">
+          調整業務のボトルネックを防ぐため、誰が・どの順番でボールを持つかを明確化します。
+        </p>
+
+        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm mb-6">
+          <h3 class="font-bold text-sm text-keio mb-4 flex items-center"><i class="fa-solid fa-water text-blue-500 mr-2"></i>プール割 ＆ 練習試合の調整 <span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded ml-2 font-normal">月次</span></h3>
+
+          <div class="timeline-container space-y-5">
+            <div class="relative">
+              <div class="timeline-dot bg-gray-300 border-gray-300"></div>
+              <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-bold">大学マネージャー</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium">基本ドラフトの作成・提示</p>
+            </div>
+            <div class="relative">
+              <div class="timeline-dot bg-blue-500 border-blue-500"></div>
+              <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span> <span class="text-[10px] text-gray-400 ml-1">w/ 各担任</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium leading-relaxed">各担任と協議の上、修正案を作成。</p>
+              <div class="bg-orange-50 border border-orange-100 rounded p-2 mt-2">
+                <p class="text-[10px] text-orange-800"><i class="fa-solid fa-shuffle mr-1"></i>このタイミングで「他校との練習試合の希望日」も併せて総監督に提示する。</p>
+              </div>
+            </div>
+            <div class="relative">
+              <div class="timeline-dot bg-keio-dark border-keio-dark"></div>
+              <span class="text-[10px] bg-gray-800 text-white px-2 py-0.5 rounded font-bold">総監督</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium leading-relaxed">学事日程との重複・無理のない日程かの最終チェック（他校との練習試合の調整を開始）</p>
+            </div>
+            <div class="relative">
+              <div class="timeline-dot bg-blue-500 border-blue-500"></div>
+              <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium">大学マネージャーへ最終案を提出。</p>
+            </div>
+            <div class="relative">
+              <div class="timeline-dot bg-green-500 border-green-500"></div>
+              <span class="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded font-bold">監督・戦術・総監督</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium">確定後、速やかに練習日程表を更新。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+          <h3 class="font-bold text-sm text-keio-red mb-4 flex items-center"><i class="fa-solid fa-dumbbell text-keio-red mr-2"></i>トレル調整 <span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded ml-2 font-normal">数週ごと断続的</span></h3>
+
+          <div class="timeline-container space-y-5">
+            <div class="relative">
+              <div class="timeline-dot bg-blue-500 border-blue-500"></div>
+              <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span> <span class="text-[10px] text-gray-400 ml-1">w/ 各担任</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium">協議の上、頻度・曜日・メニューを決定。</p>
+            </div>
+            <div class="relative">
+              <div class="timeline-dot bg-keio border-keio"></div>
+              <span class="text-[10px] bg-keio/10 text-keio px-2 py-0.5 rounded font-bold border border-keio/20">上級生 ＋ 担任</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium">学校側（施設管理者）との利用調整・申請。</p>
+            </div>
+            <div class="relative">
+              <div class="timeline-dot bg-green-500 border-green-500"></div>
+              <span class="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded font-bold">監督・戦術担当</span>
+              <p class="text-[11px] text-gray-800 mt-1 font-medium">確定後、速やかに練習日程表を更新。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
   <div id="tab-recruit" class="tab-content">
-        <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl relative overflow-hidden">
-            <div class="absolute -left-10 -top-10 text-9xl text-white/5"><i class="fa-solid fa-users-gear"></i></div>
-            <i class="fa-solid fa-handshake text-3xl text-keio-gold mb-3 relative z-10"></i>
-            <h1 class="text-2xl font-bold tracking-wider relative z-10">RECRUIT</h1>
-            <p class="text-xs text-keio-gold mt-2 opacity-80 relative z-10">次世代のロールモデルを創る「共犯者」へ</p>
-        </header>
+    <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl relative overflow-hidden">
+      <div class="absolute -left-10 -top-10 text-9xl text-white/5"><i class="fa-solid fa-users-gear"></i></div>
+      <i class="fa-solid fa-handshake text-3xl text-keio-gold mb-3 relative z-10"></i>
+      <h1 class="text-2xl font-bold tracking-wider relative z-10">RECRUIT</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-80 relative z-10">次世代のロールモデルを創る「共犯者」へ</p>
+    </header>
 
-        <main class="p-4 space-y-8 max-w-2xl mx-auto">
-            
-            <section class="glass-card rounded-2xl p-6 border-t-[5px] border-keio shadow-sm">
-                <div class="flex items-center mb-4">
-                    <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">MESSAGE</span>
-                    <h2 class="text-lg font-bold text-gray-900">水球界に、あなたの情熱を注ぐ場所はある。</h2>
-                </div>
-                <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
-                    <p>大学卒業後、社会人として水球に深く携われる環境は極端に少なくなります。しかし、我々の組織は<strong class="text-keio">「社会人として培った経験と知見」</strong>を持つあなたを強く必要としています。</p>
-                    <p>ただし、我々が求めているのは「休日に水球を教えたいだけのボランティア」ではありません。<strong class="text-keio-red border-b border-keio-red">これまで述べてきた「組織OS」や「指導哲学」に深く共感し、共にシステムをアップデートし続ける覚悟</strong>が前提条件となります。</p>
-                    
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-4 relative">
-                        <div class="absolute -left-2 -top-2 bg-yellow-400 text-black text-[10px] font-bold px-2 py-1 rounded shadow-md transform -rotate-6">REALITY</div>
-                        <h3 class="font-bold text-gray-800 text-xs mb-2 mt-2 flex items-center"><i class="fa-solid fa-triangle-exclamation text-yellow-500 mr-2"></i>現在のフェーズとリアルな待遇</h3>
-                        <p class="text-[11px] leading-relaxed text-gray-600">現状、学校法人と正式な指導員契約を結ぶ土台は出来上がっていますが、指導に対する金銭的報酬（見返り）は「無いに等しい」のが現実です。プロボノ（専門性を活かした社会貢献）としての参画に近い形となります。</p>
-                    </div>
-                </div>
-            </section>
+    <main class="p-4 space-y-8 max-w-2xl mx-auto">
 
-            <section>
-                <div class="text-center mb-8 mt-10">
-                    <h2 class="text-3xl font-bold text-keio mb-2 font-serif tracking-wide">Your Value</h2>
-                    <p class="text-xs font-bold text-keio-red mb-3">あなたが「社会人」としてここで得る価値</p>
-                    <div class="w-16 h-1 bg-keio-gold mx-auto"></div>
-                </div>
+      <section class="glass-card rounded-2xl p-6 border-t-[5px] border-keio shadow-sm">
+        <div class="flex items-center mb-4">
+          <span class="text-xs font-bold px-2 py-1 rounded tag-goal mr-2">MESSAGE</span>
+          <h2 class="text-lg font-bold text-gray-900">水球界に、あなたの情熱を注ぐ場所はある。</h2>
+        </div>
+        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <p>大学卒業後、社会人として水球に深く携われる環境は極端に少なくなります。しかし、我々の組織は<strong class="text-keio">「社会人として培った経験と知見」</strong>を持つあなたを強く必要としています。</p>
+          <p>ただし、我々が求めているのは「休日に水球を教えたいだけのボランティア」ではありません。<strong class="text-keio-red border-b border-keio-red">これまで述べてきた「組織OS」や「指導哲学」に深く共感し、共にシステムをアップデートし続ける覚悟</strong>が前提条件となります。</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all transform hover:-translate-y-1">
-                        <div class="w-12 h-12 bg-keio-dark rounded-xl flex items-center justify-center mb-5 shadow-inner">
-                            <i class="fa-solid fa-microscope text-2xl text-blue-100"></i>
-                        </div>
-                        <h3 class="font-bold text-keio text-[15px] mb-3">究極のマネジメント実験場</h3>
-                        <p class="text-[13px] text-gray-600 leading-relaxed">
-                            ここは単なる「部活の指導」ではない。個人のエゴを捨て「チームの永続と選手の成長」に熱狂する『第5水準のリーダーシップ』を実践する場だ。
-                        </p>
-                    </div>
+          <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-4 relative">
+            <div class="absolute -left-2 -top-2 bg-yellow-400 text-black text-[10px] font-bold px-2 py-1 rounded shadow-md transform -rotate-6">REALITY</div>
+            <h3 class="font-bold text-gray-800 text-xs mb-2 mt-2 flex items-center"><i class="fa-solid fa-triangle-exclamation text-yellow-500 mr-2"></i>現在のフェーズとリアルな待遇</h3>
+            <p class="text-[11px] leading-relaxed text-gray-600">現状、学校法人と正式な指導員契約を結ぶ土台は出来上がっていますが、指導に対する金銭的報酬（見返り）は「無いに等しい」のが現実です。プロボノ（専門性を活かした社会貢献）としての参画に近い形となります。</p>
+          </div>
+        </div>
+      </section>
 
-                    <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all transform hover:-translate-y-1">
-                        <div class="w-12 h-12 bg-[#DDAA33] rounded-xl flex items-center justify-center mb-5 shadow-inner">
-                            <i class="fa-solid fa-brain text-2xl text-pink-200"></i>
-                        </div>
-                        <h3 class="font-bold text-keio text-[15px] mb-3">知的資産の獲得</h3>
-                        <p class="text-[13px] text-gray-600 leading-relaxed">
-                            「どうすれば人が自律的に動くか」「どうシステムを設計すれば組織のバグが消えるか」。高校生の「喪失と獲得のループ（後悔を強烈な動機に変える力）」に伴走し、最新のモチベーションデザインを実践・検証できる最高のサンドボックスである。この経験は、あなたが本業のビジネスで突き抜けるための圧倒的な資産となる。
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </main>
+      <section>
+        <div class="text-center mb-8 mt-10">
+          <h2 class="text-3xl font-bold text-keio mb-2 font-serif tracking-wide">Your Value</h2>
+          <p class="text-xs font-bold text-keio-red mb-3">あなたが「社会人」としてここで得る価値</p>
+          <div class="w-16 h-1 bg-keio-gold mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all transform hover:-translate-y-1">
+            <div class="w-12 h-12 bg-keio-dark rounded-xl flex items-center justify-center mb-5 shadow-inner">
+              <i class="fa-solid fa-microscope text-2xl text-blue-100"></i>
+            </div>
+            <h3 class="font-bold text-keio text-[15px] mb-3">究極のマネジメント実験場</h3>
+            <p class="text-[13px] text-gray-600 leading-relaxed">
+              ここは単なる「部活の指導」ではない。個人のエゴを捨て「チームの永続と選手の成長」に熱狂する『第5水準のリーダーシップ』を実践する場だ。
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all transform hover:-translate-y-1">
+            <div class="w-12 h-12 bg-[#DDAA33] rounded-xl flex items-center justify-center mb-5 shadow-inner">
+              <i class="fa-solid fa-brain text-2xl text-pink-200"></i>
+            </div>
+            <h3 class="font-bold text-keio text-[15px] mb-3">知的資産の獲得</h3>
+            <p class="text-[13px] text-gray-600 leading-relaxed">
+              「どうすれば人が自律的に動くか」「どうシステムを設計すれば組織のバグが消えるか」。高校生の「喪失と獲得のループ（後悔を強烈な動機に変える力）」に伴走し、最新のモチベーションデザインを実践・検証できる最高のサンドボックスである。この経験は、あなたが本業のビジネスで突き抜けるための圧倒的な資産となる。
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="tab-safety" class="tab-content">
+    <header class="bg-keio text-white px-5 pt-12 pb-8 text-center rounded-b-3xl relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 text-9xl text-white/5"><i class="fa-solid fa-shield-halved"></i></div>
+      <i class="fa-solid fa-shield-heart text-3xl text-keio-gold mb-3 relative z-10"></i>
+      <h1 class="text-2xl font-bold tracking-wider relative z-10">SAFETY MANAGEMENT</h1>
+      <p class="text-xs text-keio-gold mt-2 opacity-80 relative z-10">安全対策・緊急時プロトコル</p>
+    </header>
+
+    <main class="p-4 space-y-6 max-w-2xl mx-auto">
+
+      <section class="bg-red-50 rounded-2xl p-5 border-[3px] border-red-500 shadow-md">
+        <div class="flex items-center justify-between border-b border-red-200 pb-2 mb-4">
+          <h2 class="text-lg font-bold text-red-700 flex items-center"><i class="fa-solid fa-phone-volume animate-pulse mr-2"></i>緊急連絡先 (Hotlines)</h2>
+          <span class="text-[10px] bg-red-600 text-white px-2 py-1 rounded font-bold">EMERGENCY</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <a href="tel:119" class="block bg-white p-3 rounded-xl border-l-4 border-red-600 shadow-sm active:bg-gray-50">
+            <div class="text-[10px] text-gray-500 font-bold mb-1">意識がない・歩けない・大けが</div>
+            <div class="flex items-center justify-between">
+              <div class="font-bold text-lg text-gray-900">救急車要請</div>
+              <div class="text-2xl font-black text-red-600 tracking-wider">119</div>
+            </div>
+          </a>
+
+          <a href="tel:03-6709-9149" class="block bg-white p-3 rounded-xl border-l-4 border-orange-500 shadow-sm active:bg-gray-50">
+            <div class="text-[10px] text-gray-500 font-bold mb-1">緊急時（夏季休業中以外も対応）</div>
+            <div class="flex items-center justify-between">
+              <div class="font-bold text-sm text-gray-900 leading-tight">慶應大学病院<br>救急科ホットライン</div>
+              <div class="text-lg font-bold text-orange-600">03-6709-9149</div>
+            </div>
+          </a>
+
+          <a href="tel:#7119" class="block bg-white p-3 rounded-xl border-l-4 border-yellow-500 shadow-sm active:bg-gray-50">
+            <div class="text-[10px] text-gray-500 font-bold mb-1">救急車を呼ぶか迷ったら</div>
+            <div class="flex items-center justify-between">
+              <div class="font-bold text-sm text-gray-900">救急安心センター</div>
+              <div class="text-xl font-black text-yellow-600 tracking-wider">#7119</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="bg-white p-3 rounded-xl border border-red-100 space-y-2">
+          <div class="flex justify-between items-center text-xs border-b border-gray-100 pb-2">
+            <span class="font-bold text-gray-700">学内：保健室 <span class="text-[9px] text-gray-500 font-normal">平日 8:30-17:30</span></span>
+            <span class="font-mono text-gray-900">045-566-1385 <span class="text-[10px] text-gray-500">(内34135)</span></span>
+          </div>
+          <div class="flex justify-between items-center text-xs border-b border-gray-100 pb-2">
+            <span class="font-bold text-gray-700">学内：TRルーム <span class="text-[9px] text-gray-500 font-normal">土日祝 8:30-16:30</span></span>
+            <span class="font-mono text-gray-900">045-563-1130 <span class="text-[10px] text-gray-500">(内34152)</span></span>
+          </div>
+          <div class="flex justify-between items-center text-xs pb-1">
+            <span class="font-bold text-gray-700">現場責任者（折笠・バン・相澤）</span>
+            <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">部内緊急連絡網を参照</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-2xl p-6 border-t-4 border-keio">
+        <div class="flex items-center mb-3">
+          <span class="text-[10px] font-bold px-2 py-1 rounded bg-keio/10 text-keio mr-2">POLICY</span>
+          <h2 class="text-md font-bold text-gray-900">基本体制と責任の所在</h2>
+        </div>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          指導者（監督・顧問・社会人・学生コーチ）及び生徒が、安全管理のルールづくりや情報共有を組織的に行います。現場の総合責任者は、駐在している<strong class="text-keio">「部長・副部長・学校任命の部活動指導員（責任者）」</strong>です。
+        </p>
+      </section>
+
+      <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative">
+        <div class="flex items-center mb-5">
+          <i class="fa-solid fa-truck-medical text-xl text-keio-red mr-3"></i>
+          <h2 class="text-md font-bold text-gray-900">傷病者発生時のアクションフロー</h2>
+        </div>
+
+        <div class="timeline-container space-y-6">
+          <div class="relative">
+            <div class="timeline-dot bg-keio border-keio"></div>
+            <h3 class="font-bold text-sm text-keio mb-1">STEP 1. 初期段階・報告</h3>
+            <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 text-xs text-gray-700 space-y-2">
+              <p class="leading-relaxed">・けが人の安全確保と、近くにいる人への協力要請（複数人で役割分担）。</p>
+              <p class="leading-relaxed">・<strong class="text-keio-red font-bold">どんなに軽いけがでも必ず指導者へ報告</strong>。</p>
+              <div class="bg-blue-50/50 p-2 rounded border border-blue-100 text-[11px] text-gray-600 leading-relaxed mt-1">
+                <i class="fa-solid fa-circle-info text-blue-500 mr-1"></i>（報告受けた指導者が責任者ではない場合は責任者に報告し、当該責任者が部長・副部長以外の場合は部長に報告する）
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="timeline-dot bg-orange-500 border-orange-500"></div>
+            <h3 class="font-bold text-sm text-orange-600 mb-1">STEP 2. 状況判断（応急処置か、救急車か）</h3>
+            <div class="space-y-2 mt-2">
+              <div class="bg-red-50 p-3 rounded-xl border border-red-200">
+                <h4 class="text-[11px] font-bold text-red-800 mb-1 flex items-center"><i class="fa-solid fa-triangle-exclamation mr-1 text-xs"></i>重症（意識なし・歩けない・大けが）</h4>
+                <p class="text-[10px] text-gray-700 leading-relaxed">発見者が<strong class="text-red-600 border-b border-red-600">迷わず「119」へ要請</strong>。緊急性が分からない場合も同様。</p>
+              </div>
+              <div class="bg-blue-50 p-3 rounded-xl border border-blue-100">
+                <h4 class="text-[11px] font-bold text-blue-800 mb-1">軽症（自分で歩ける）</h4>
+                <p class="text-[10px] text-gray-700 leading-relaxed">安静にさせ、部所有の応急セットで処置。必要に応じて保健室・ATへ相談。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="timeline-dot bg-keio-gold border-keio-gold"></div>
+            <h3 class="font-bold text-sm text-yellow-700 mb-3">STEP 3. 各パターン別の対応要件</h3>
+
+            <div class="mb-4">
+              <div class="flex items-center mb-2">
+                <span class="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-bold mr-2 tracking-tighter">PATTERN A</span>
+                <h4 class="text-[12px] font-bold text-red-700 leading-none">救急車を呼ぶ場合</h4>
+              </div>
+              <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 text-[11px] text-gray-700 space-y-2 ml-1">
+                <p class="flex items-start"><i class="fa-solid fa-circle-check text-red-500 mt-1 mr-2 text-[10px]"></i><span><strong class="text-red-700">原則、責任者が同伴する</strong>。</span></p>
+                <p class="flex items-start"><i class="fa-solid fa-circle-check text-red-500 mt-1 mr-2 text-[10px]"></i><span><strong class="text-red-700">指導者が要請を行う</strong>が、緊急時は生徒からの要請も可。</span></p>
+                <p class="flex items-start"><i class="fa-solid fa-circle-check text-gray-400 mt-1 mr-2 text-[10px]"></i><span>高校警備室 (内34199)に連絡し、救急車の誘導を依頼する。</span></p>
+                <p class="flex items-start"><i class="fa-solid fa-circle-check text-gray-400 mt-1 mr-2 text-[10px]"></i><span>責任者が保護者へ連絡し、状況と搬送先病院を伝える。</span></p>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center mb-2">
+                <span class="bg-blue-600 text-white text-[9px] px-2 py-0.5 rounded-full font-bold mr-2 tracking-tighter">PATTERN B</span>
+                <h4 class="text-[12px] font-bold text-blue-700 leading-none">救急車を呼ばない場合</h4>
+              </div>
+              <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 text-[11px] text-gray-700 space-y-2 ml-1">
+                <p class="font-bold text-blue-900 border-b border-blue-100 pb-1 flex items-center mb-1"><i class="fa-solid fa-house-user mr-1"></i>保護者への連絡</p>
+                <p class="flex items-start"><i class="fa-solid fa-check text-blue-500 mt-1 mr-2 text-[10px]"></i><span><strong class="text-blue-700 font-bold">責任者が速やかに保護者へ連絡</strong>して情報共有を行う。</span></p>
+                <p class="flex items-start"><i class="fa-solid fa-check text-blue-500 mt-1 mr-2 text-[10px]"></i><span>責任者が連絡できない場合は、指導者からの連絡も可。</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="timeline-dot bg-keio border-keio"></div>
+            <h3 class="font-bold text-sm text-keio mb-1">STEP 4. 医療機関の受診</h3>
+            <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 text-xs text-gray-700 space-y-1">
+              <p>・原則、<strong class="text-keio font-bold">責任者の同伴</strong>の下で受診する。</p>
+              <p>・保険証を準備し、保護者の同意を得てから受診する（緊急時は例外）。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section class="glass-card rounded-xl p-5 border-l-4 border-green-600">
+          <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase mb-1 block">Prevention</span>
+          <h3 class="font-bold text-sm text-gray-800 mb-3"><i class="fa-solid fa-person-swimming text-green-600 mr-2"></i>日常的な安全対策</h3>
+          <ul class="text-[11px] text-gray-600 space-y-2 leading-relaxed">
+            <li class="flex items-start"><i class="fa-solid fa-check text-green-500 mt-0.5 mr-1.5"></i>プールサイドでは走らない・ふざけない・ボール以外を投げない。</li>
+            <li class="flex items-start"><i class="fa-solid fa-check text-green-500 mt-0.5 mr-1.5"></i>練習前のミーティングで当日の流れを確認、器具の事前点検。</li>
+            <li class="flex items-start"><i class="fa-solid fa-check text-green-500 mt-0.5 mr-1.5"></i>体調不良時は無理せず休む。遅刻・欠席は速やかに連絡。</li>
+          </ul>
+        </section>
+
+        <section class="glass-card rounded-xl p-5 border-l-4 border-gray-600">
+          <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase mb-1 block">Follow-up</span>
+          <h3 class="font-bold text-sm text-gray-800 mb-3"><i class="fa-solid fa-clipboard-check text-gray-600 mr-2"></i>事故発生後の対応</h3>
+          <ul class="text-[11px] text-gray-600 space-y-2 leading-relaxed">
+            <li class="flex items-start"><i class="fa-solid fa-arrow-right text-gray-400 mt-0.5 mr-1.5"></i>関係者全員で状況確認と原因究明を実施。</li>
+            <li class="flex items-start"><i class="fa-solid fa-arrow-right text-gray-400 mt-0.5 mr-1.5"></i>保護者を含む各関係者へ結果を報告。</li>
+            <li class="flex items-start"><i class="fa-solid fa-arrow-right text-gray-400 mt-0.5 mr-1.5"></i>再発防止策を講じ、適切に本マニュアルを改定する。</li>
+          </ul>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="switchTab('tab-home', this)">
+      <i class="fa-solid fa-house icon"></i>
+      <span>HOME</span>
     </div>
-  
-    <nav class="bottom-nav">
-      <div class="nav-item active" onclick="switchTab('tab-home', this)">
-            <i class="fa-solid fa-house icon"></i>
-            <span>HOME</span>
-        </div>
-      <div class="nav-item" onclick="switchTab('tab-org', this)">
-            <i class="fa-solid fa-sitemap icon"></i>
-            <span>組織</span>
-        </div>
-      <div class="nav-item" onclick="switchTab('tab-policy', this)">
-            <i class="fa-solid fa-compass icon"></i>
-            <span>方針</span>
-        </div>
-      <div class="nav-item" onclick="switchTab('tab-tactics', this)">
-            <i class="fa-solid fa-chess-knight icon"></i>
-            <span>戦術</span>
-        </div>
-      <div class="nav-item" onclick="switchTab('tab-program', this)">
-            <i class="fa-solid fa-seedling icon"></i>
-            <span>育成</span>
-        </div>
-      <div class="nav-item" onclick="switchTab('tab-diplomacy', this)">
-            <i class="fa-solid fa-globe icon"></i>
-            <span>外交</span>
-        </div>
-      <div class="nav-item" onclick="switchTab('tab-ops', this)">
-    <i class="fa-solid fa-gears icon"></i>
-    <span>運用</span>
-</div>
-      <div class="nav-item" onclick="switchTab('tab-recruit', this)">
-            <i class="fa-solid fa-user-plus icon"></i>
-            <span>採用</span>
-        </div>
-      <div class="nav-item" onclick="switchTab('tab-safety', this)">
-            <i class="fa-solid fa-shield-heart icon"></i>
-            <span>安全</span>
-        </div>
+    <div class="nav-item" onclick="switchTab('tab-org', this)">
+      <i class="fa-solid fa-sitemap icon"></i>
+      <span>組織</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-policy', this)">
+      <i class="fa-solid fa-compass icon"></i>
+      <span>方針</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-tactics', this)">
+      <i class="fa-solid fa-chess-knight icon"></i>
+      <span>戦術</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-program', this)">
+      <i class="fa-solid fa-seedling icon"></i>
+      <span>育成</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-diplomacy', this)">
+      <i class="fa-solid fa-globe icon"></i>
+      <span>外交</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-ops', this)">
+      <i class="fa-solid fa-gears icon"></i>
+      <span>運用</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-recruit', this)">
+      <i class="fa-solid fa-user-plus icon"></i>
+      <span>採用</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-safety', this)">
+      <i class="fa-solid fa-shield-heart icon"></i>
+      <span>安全</span>
+    </div>
 
-      
-      
-    </nav>
+  </nav>
 
-    <script>
-        function switchTab(tabId, element) {
-            // 全タブコンテンツを非表示＆アニメーションリセット
-            document.querySelectorAll('.tab-content').forEach(function(tab) {
-                tab.classList.remove('active');
-            });
-            
-            // 全ナビゲーションアイコンを非アクティブ化
-            document.querySelectorAll('.nav-item').forEach(function(nav) {
-                nav.classList.remove('active');
-            });
-            
-            // 選択されたタブとアイコンをアクティブ化
-            const targetTab = document.getElementById(tabId);
-            targetTab.classList.add('active');
-            element.classList.add('active');
-            
-            // ページ上部へスムーズスクロール
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+  <script>
+    function switchTab(tabId, element) {
+      // 全タブコンテンツを非表示＆アニメーションリセット
+      document.querySelectorAll('.tab-content').forEach(function(tab) {
+        tab.classList.remove('active');
+      });
+      // 全ナビゲーションアイコンを非アクティブ化
+      document.querySelectorAll('.nav-item').forEach(function(nav) {
+        nav.classList.remove('active');
+      });
+      // 選択されたタブとアイコンをアクティブ化
+      const targetTab = document.getElementById(tabId);
+      targetTab.classList.add('active');
+      element.classList.add('active');
+      // ページ上部へスムーズスクロール
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  </script>
 </body>
+
 </html>
